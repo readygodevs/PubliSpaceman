@@ -1,0 +1,359 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_LayoutMentor.cshtml";
+}
+
+<!--Banner-->
+@*background:url('@Url.Content("~/Mentor/img/personal_tienda.jpg")') no-repeat center top*@
+<style type="text/css">
+    .filaSeleccionada {
+        color: #fff;
+    }
+</style>
+<script type="text/javascript">
+    jQuery(document).ready(function ($) {
+        $("#Nav_Usrs").load("@Url.Action("Navegador_Usrs","Home")");
+    });
+    var textSeparator = ";";
+    function OnListBoxSelectionChanged(listBox, args) {
+        if (args.index == 0)
+            args.isSelected ? listBox.SelectAll() : listBox.UnselectAll();
+        UpdateSelectAllItemState();
+        UpdateText();
+    }
+    function UpdateSelectAllItemState() {
+        IsAllSelected() ? checkListBox.SelectIndices([0]) : checkListBox.UnselectIndices([0]);
+    }
+    function IsAllSelected() {
+        for (var i = 1; i < checkListBox.GetItemCount() ; i++)
+            if (!checkListBox.GetItem(i).selected)
+                return false;
+        return true;
+    }
+    function UpdateText() {
+        var selectedItems = checkListBox.GetSelectedItems();
+        cmbCategorias.SetText(GetSelectedItemsText(selectedItems));
+    }
+    function SynchronizeListBoxValues(dropDown, args) {
+        checkListBox.UnselectAll();
+        var texts = dropDown.GetText().split(textSeparator);
+        var values = GetValuesByTexts(texts);
+        checkListBox.SelectValues(values);
+        UpdateSelectAllItemState();
+        UpdateText(); // for remove non-existing texts
+    }
+    function GetSelectedItemsText(items) {
+        var texts = [];
+        for (var i = 0; i < items.length; i++)
+            if (items[i].index != 0)
+                texts.push(items[i].text);
+        return texts.join(textSeparator);
+    }
+    function GetValuesByTexts(texts) {
+        var actualValues = [];
+        var item;
+        for (var i = 0; i < texts.length; i++) {
+            item = checkListBox.FindItemByText(texts[i]);
+            if (item != null)
+                actualValues.push(item.value);
+        }
+        return actualValues;
+    }
+
+    function isNumeric(num) {
+        //return !isNaN(num)
+        if (num.match(/^-{0,1}\d+$/)) {//entero
+            return true;
+        } else if (num.match(/^\d+\.\d+$/)) { //decimal
+            return false;
+        } else {
+            return false;
+        }
+    }
+    function ValidarSeleccion() {
+        TreeList1.GetSelectedNodeValues('ID', GenerarPlanogramas);
+    }
+    function GenerarPlanogramas(values) {
+
+        //console.log(values.length)
+        mostrarLoad();
+
+
+        if (values.length == 0) {
+            $("#errormessage").addClass("show");
+            $('#errormessage').html("Seleccione al menos una tienda.");
+            //eval(codeError);
+            $("#modalError").modal("show");
+
+            ocultarLoad();
+            return;
+        }
+
+        tiendas = [];
+        f = 0;
+        for (i = 0; i < values.length; i++) {
+            console.log("nodo:"+values[i]);
+            if (isNumeric(values[i])) {
+                tiendas[f] = values[i];
+                f++;
+            }
+        }
+
+        categorias = cmbCategorias.GetText().replace(/\(Seleccionar todo/g, "").split(textSeparator);
+
+        //console.log(JSON.stringify(tiendas));
+
+        $.ajax({
+            type: "POST",
+            dataType: "json",
+            url: "@Url.Action("ActualizarPlanogramas", "Planograma")",
+            data: { tiendas: tiendas, categorias: categorias },
+            success: function (msg) {
+                //alert(msg);
+                $("#sendmessage").removeClass("show");
+                //console.log(msg);
+                if (!msg.Error) {
+                } else {
+                    $("#errormessage").addClass("show");
+                    $('#errormessage').html(msg.Mensaje);
+                    //eval(codeError);
+                    $("#modalError").modal("show");
+                }
+                ocultarLoad();
+
+
+            }
+        });
+    }
+
+    anterior = 0;
+    function BuscarNodo(key) {
+        var rowCount = $('#TreeList1_D > tbody > tr').length;
+        //console.log("total filas:"+rowCount);
+        if ($("#txtBuscar").val() == "") return;
+        i = 0;
+        if (key == 13) {
+            //TreeList1.ExpandAll();
+            $("#TreeList1_D > tbody > tr").each(function (e) {
+
+                var nodeKey = $(this).attr("id").replace(/\TreeList1_R-/g, "");
+                //console.log("key", nodeKey);
+                var nodeState = TreeList1.GetNodeState(nodeKey);
+
+                //console.log("state:" + nodeState);
+
+                if (nodeState == "Collapsed") {
+                    TreeList1.ExpandNode(nodeKey);
+                }
+
+                if ($(this).text().toUpperCase().indexOf($("#txtBuscar").val().toUpperCase()) > -1) {
+                    //console.log("anterior:" + anterior);
+                    //console.log("fila:" + i);
+                    $(this).removeClass("filaSeleccionada");
+                    $(this).css("background-color", "");
+                    if (i > anterior) {
+                        anterior = i;//$(this).text();
+                        //console.log(anterior);
+                        $(this).addClass("filaSeleccionada");
+                        $(this).css("background-color", "#5fcf80");
+
+                        //var w = $("#divArbol");
+                        var b = $(window);
+                        var row = $(this);//$('#tableid').find('tr').eq(line);
+
+                        //if (row.length) {
+                        //w.scrollTop(row.offset().top - (w.height() / 2));
+                        b.scrollTop(row.offset().top - (b.height() / 2));
+                        //}
+
+                        return false;
+                    }
+                }
+                if (i == (rowCount - 1)) {
+                    anterior = 0;
+                }
+                i++;
+                //console.log("conteo:" + i);
+
+            });
+        }
+    }
+</script>
+
+
+<div class="banner" id="divInicio" style="min-height:290px;height:290px;">
+    <div class="bg-color" style="min-height:290px">
+        <div class="container">
+            <div class="row">
+                <div class="banner-text text-center">
+                    <div class="text-border" style="margin-top:90px">
+                        <h2 class="text-dec">Planogramas</h2>
+                    </div>
+                    <div class="intro-para text-center quote">
+                        <p class="small-text">Genere un planograma seleccionando una tienda</p>
+                        @*<p class="small-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Laudantium enim repellat sapiente quos architecto<br>Laudantium enim repellat sapiente quos architecto</p>
+                            <a href="#footer" class="btn get-quote">GET A QUOTE</a>*@
+                    </div>
+                    <a href="#zonificacion" class="mouse-hover">
+                        <div class="mouse" style="bottom:5px"></div>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+</div>
+<!--/ Banner-->
+<div id="zonificacion" class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+    @*<div class="cta-2-form text-center" style="margin:5px 5px">
+
+            <input onkeypress="BuscarNodo(event.keyCode)" id="txtBuscar" placeholder="Buscar" type="email" autocomplete="off" />
+            <button onclick="BuscarNodo(13)" class="cta-2-form-submit-btn"><i class="fa fa-search"></i></button>
+
+        </div>*@
+    @*<div class="input-group col-lg-6 col-md-6 col-sm-12 col-xs-12" style="margin:5px 5px">
+            <input type="text" onkeypress="BuscarNodo(event.keyCode)" class="form-control" placeholder="Buscar" aria-describedby="basic-addon2">
+            <span class="input-group-addon" id="basic-addon2"><i class="fa fa-search"></i></span>
+        </div>*@
+    @*@Html.Action("ArbolZonificacion")*@
+</div>
+<div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+</div>
+
+
+<div id="configuracion" class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+    <div class="banner" style="min-height:290px;height:290px;">
+        <div class="bg-color" style="min-height:290px">
+            <div class="container">
+                <div class="row">
+                    <div class="banner-text text-center">
+                        <div class="text-border" style="margin-top:90px">
+                            <h2 class="text-dec">Configuración</h2>
+                        </div>
+                        <div class="intro-para text-center quote">
+                            <p class="small-text">Catálogo de Usuarios y Configuraciones Generales</p>
+                            @*<p class="small-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Laudantium enim repellat sapiente quos architecto<br>Laudantium enim repellat sapiente quos architecto</p>
+                                <a href="#footer" class="btn get-quote">GET A QUOTE</a>*@
+                        </div>
+                        <a href="#configuracion" class="mouse-hover">
+                            <div class="mouse" style="bottom:5px"></div>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    @*@Html.Action("GridViewPartialUsr")*@
+    <div id="Nav_Usrs"></div>
+
+</div>
+
+<div class="row" style="width:100px"></div>
+
+<div class="modal fade bd-example-modal-sm" id="modalGenerar" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog modal-sm" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="myModalLabel">Generar Planogramas</h4>
+            </div>
+            <div class="modal-body" style="height:60px">
+
+                <div class="form-group">
+                    <label class="control-label col-lg-4 col-md-4 col-sm-12 col-xs-12">Categoría</label>
+                    <div class="col-lg-8 col-md-8 col-sm-12 col-xs-12">
+
+
+                        @Html.DevExpress().DropDownEdit(
+settings =>
+{
+    settings.Name = "cmbCategorias";
+    settings.Width = 200;
+    settings.ControlStyle.CssClass = "form-control";
+    //settings.Properties.DropDownWindowStyle.BackColor = System.Drawing.Color.LawnGreen;
+
+    settings.SetDropDownWindowTemplateContent(c =>
+    {
+        @Html.DevExpress().ListBox(
+        listBoxSettings =>
+        {
+            listBoxSettings.Name = "checkListBox";
+
+            listBoxSettings.ControlStyle.Border.BorderWidth = 0;
+            //listBoxSettings.ControlStyle.BorderBottom.BorderWidth = 1;
+            //listBoxSettings.ControlStyle.BorderBottom.BorderColor = System.Drawing.Color.Black;
+            listBoxSettings.Height = 195;
+            listBoxSettings.Width = 180;
+
+            listBoxSettings.Properties.SelectionMode = ListEditSelectionMode.CheckColumn;
+            //listBoxSettings.Properties.Items.Add("(Select all)");
+            //listBoxSettings.Properties.Items.Add("Chrome", "1");
+            //listBoxSettings.Properties.Items.Add("Firefox", "2");
+            //listBoxSettings.Properties.Items.Add("IE", "3");
+            //listBoxSettings.Properties.Items.Add("Opera", "4");
+            //listBoxSettings.Properties.Items.Add("Safari", "5");
+
+            listBoxSettings.Properties.ClientSideEvents.SelectedIndexChanged = "OnListBoxSelectionChanged";
+            listBoxSettings.ControlStyle.CssClass = "form-control";
+
+        }
+        ).BindList(ViewBag.Categorias)
+        .Render();
+        ViewContext.Writer.Write("<div style=\"margin: 6px; overflow: hidden;\">");
+        @Html.DevExpress().Button(
+        buttonSettings =>
+        {
+            buttonSettings.Name = "buttonClose";
+            buttonSettings.ControlStyle.CssClass = "btn btn-secondary";
+            buttonSettings.Text = "Cerrar";
+            buttonSettings.Style.Add("float", "right");
+            buttonSettings.ClientSideEvents.Click = "function(s, e){ cmbCategorias.HideDropDown(); }";
+            buttonSettings.Height = 26;
+        }
+        )
+        .Render();
+        ViewContext.Writer.Write("</div>");
+    });
+    settings.Properties.AnimationType = AnimationType.None;
+    settings.Properties.ClientSideEvents.TextChanged = "SynchronizeListBoxValues";
+    settings.Properties.ClientSideEvents.DropDown = "SynchronizeListBoxValues";
+}
+).GetHtml();
+                    </div>
+                </div>
+
+            </div>
+            <div class="modal-footer">
+
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar <i class="fa fa-window-close"></i></button>
+                <button type="button" onclick="ValidarSeleccion()" class="btn btn-success">Generar <i class="fa fa-file-pdf-o"></i></button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade bd-example-modal-sm" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel"
+     aria-hidden="true" id="modalError">
+    <div class="modal-dialog modal-sm">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="myModalLabel">Información</h4>
+            </div>
+            <div class="modal-body">
+
+                <div id="errormessage">
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+

@@ -1,0 +1,178 @@
+﻿.footerPage {
+    position: absolute;
+    bottom: 50px;
+    left: 900px;
+    width: 100%;
+    font-size:20px;
+    font-family:Arial;
+}
+
+.texto {
+    position: absolute;
+    font-family: monospace;
+    font-size: 20px;
+    border: 1px solid;
+    vertical-align: central;
+    text-align: center;
+}
+
+    .texto > label {
+        margin: auto;
+        position: absolute;
+        left: 0;
+        bottom: 0;
+        right: 0;
+        height: 100%;
+        vertical-align: central;
+    }
+
+.pagina {
+    height: 1800px;
+    width: 1275px;
+    margin-top:10px;
+    position: relative;
+    clear: both;
+    page-break-inside: avoid;
+    border-right: 20px solid red;
+    border-left: 20px solid red;
+}
+
+.pagina_h {
+    /*height: 1650px;
+    width: 2300px;tamaño oficio landscape*/
+    height: 1150px;
+    width: 1600px;
+    margin-top:10px;
+    position: relative;
+    clear: both;
+    page-break-inside: avoid;
+    border-right: 20px solid red;
+    border-left: 20px solid red;
+}
+
+.panel {
+    border-bottom: 1px solid;
+    border-top: 1px solid;
+    border-left: 2px groove;
+    border-right: 2px groove;
+    page-break-inside: avoid;
+    vertical-align: central;
+    position: absolute;
+    z-index: -10001;
+    /*max-height: 900px;*/
+    float: left;
+    /*margin: auto;
+    top: 0;*/
+    bottom: 10px;
+}
+
+.item_header {
+    position: absolute;
+    font-size: 9px;
+    font-family: monospace;
+    border: 1px solid;
+    text-align: center;
+    margin-left: auto;
+    margin-right: auto;
+    left: 0;
+    right: 0;
+}
+
+img {
+    position: absolute;
+}
+
+.cenefa {
+    border: 1px solid;
+    z-index: -10000;
+    position: absolute;
+}
+
+.top_init {
+    margin-bottom: 500px;
+}
+
+.segment {
+    position: relative;
+    border: double 5px;
+    /*background: lightgray;*/
+}
+
+.divider {
+    font-family: monospace;
+    font-size: 8px;
+    width: 100%;
+}
+
+/*@import url(http://fonts.googleapis.com/css?family=VT323);*/
+
+.fitText {
+    font-family: monospace;
+    /*position: relative;*/
+}
+
+
+.rotate {
+    -webkit-transform: rotate(270deg) translateX(-100%);
+    -moz-transform: rotate(270deg) translateX(-100%);
+    -ms-transform: rotate(270deg) translateX(-100%);
+    -o-transform: rotate(270deg) translateX(-100%);
+    transform: rotate(270deg) translateX(-100%);
+    -webkit-transform-origin: 0 0;
+    -moz-transform-origin: 0 0;
+    -ms-transform-origin: 0 0;
+    -o-transform-origin: 0 0;
+    transform-origin: 0 0;
+    filter: progid:DXImageTransform.Microsoft.BasicImage(rotation=3);
+}
+
+.descripcion {
+    border: 1px solid;
+    position: absolute;
+    z-index: 1;
+    background: white;
+    
+}
+/*.table1 td,
+img {
+    vertical-align: bottom;
+}
+
+.table1 td,
+.table2 td {
+    border-spacing: 0;
+    padding: 0;
+    vertical-align: bottom;
+}
+
+.table2 td,
+img,
+table {
+    max-height: 100px;
+}
+
+.table1 td {
+    border: none;
+    width: 30px;
+    margin: 0;
+}
+
+img {
+    display: block;
+    margin: auto;
+}
+
+table {
+    padding: 0;
+    width: 350px;
+    max-width: 350px;
+    border-collapse: collapse;
+}
+
+
+
+.table2 td {
+    border: none;
+    height: 100px;
+    margin: 0;
+}*/

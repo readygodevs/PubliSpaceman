@@ -1,0 +1,151 @@
+﻿<!DOCTYPE html>
+
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewBag.Title</title>
+    @*@Styles.Render("~/Content/css")
+
+    @Scripts.Render("~/bundles/jquery")*@
+    <link rel="stylesheet" href="@Url.Content("~/Mentor/css/bootstrap.min.css")">
+    <link rel="stylesheet" href="@Url.Content("~/Mentor/css/font-awesome.min.css")">
+    <link rel="stylesheet" href="@Url.Content("~/Mentor/css/style.css")">
+
+    <script src="@Url.Content("~/Mentor/js/bootstrap.min.js")"></script>
+    <script src="@Url.Content("~/Mentor/js/jquery.min.js")"></script>
+    <script src="@Url.Content("~/Mentor/js/validatorForm.js")"></script>
+    <script type="text/javascript">
+        jQuery(document).ready(function ($) {
+            "use strict";
+            ocultarLoad();
+        });
+    </script>
+</head>
+<body>
+    <!--Navigation bar-->
+    <nav class="navbar navbar-default navbar-fixed-top">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+
+                @*<div class="form-group">
+                    <div class="col-lg-3 col-md-3 col-sm-12">
+                        <img src="~/Mentor/img/kiosko1.png" style="width:15vh" />
+                    </div>
+                    <div class="col-lg-9 col-md-9 col-sm-12">*@
+                <a class="navbar-brand" href="#">Planograma<span>GEN</span></a>
+                @*</div>
+                    </div>*@
+            </div>
+            <div class="collapse navbar-collapse" id="myNavbar" style="text-align:center">
+                <ul class="nav navbar-nav navbar-right">
+                    @*<li><a href="#feature">Features</a></li>
+                        <li><a href="#organisations">Organisations</a></li>
+                        <li><a href="#courses">Courses</a></li>
+                        <li><a href="#pricing">Pricing</a></li>
+                        <li><a href="#" data-target="#login" data-toggle="modal">Sign in</a></li>*@
+                    @if (ViewBag.Usuario != null)
+                    {
+                        <li class="active">
+                            <a href="#divInicio">Planogramas <i class="fa fa-bar-chart"></i> </a>
+                        </li>
+                        @*<li>
+                                    <a href="#" id="dropdownMenuPlan" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">Planogramas <i class="fa fa-bar-chart"></i> <i class="fa fa-sort-down"></i></a>
+                                    <ul class="dropdown-menu" aria-labelledby="dropdownMenuPlan">
+                                        <li style="width: 250px;padding: 5px;">
+                                            <div class="input-group">
+                                                <input type="text" onkeypress="BuscarNodo(event.keyCode)" id="txtBuscar" class="form-control" placeholder="Buscar tienda..." aria-describedby="basic-addon2">
+                                                <span class="input-group-addon" id="basic-addon2"><i class="fa fa-search"></i></span>
+                                            </div>
+                                        </li>
+                                        <li style="text-align:center"><button onclick="ValidarSeleccion()" data-toggle="modal" data-target="#modalGenerar" style="width:90%; border-radius:25px" class="form contact-form-button light-form-button oswald light">Generar Planograma <i class="fa fa-file-pdf-o"></i></button> </li>
+                            </ul>
+                                    </li>*@
+
+                        <li><a href="#" data-toggle="modal" data-target="#modalGenerar">Generar <i class="fa fa-file-pdf-o"></i></a></li>
+                        <li><a href="#configuracion">Configuración <i class="fa fa-cog"></i></a></li>
+
+                        <li>
+                            <div class="input-group">
+                                <input type="text" onkeypress="BuscarNodo(event.keyCode)" id="txtBuscar" class="form-control" placeholder="Buscar..." aria-describedby="basic-addon2">
+                                <span class="input-group-addon" id="basic-addon2"><i class="fa fa-search"></i></span>
+                            </div>
+                        </li>
+                        <li class="btn-trial">
+                            @*<div class="dropdown">*@
+                            @*<button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">*@
+                            <a href="#" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                                @Html.Raw("Bienvenid@")
+                                <i class="fa fa-sort-down"></i>
+                            </a>
+
+                            @*</button>*@
+                            <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+                                <li style="font-weight:bolder"><a style="border:none" href="#">@Html.Raw((ViewBag.Usuario as PlanogramaGen.Models.UsuarioLogin).Nombre)</a></li>
+                                <li><a style="border:none" href="@Url.Action("CerrarSesion","Planograma")">Cerrar Sesión <i class="fa fa-sign-out"></i></a></li>
+                            </ul>
+                            @*</div>*@
+                        </li>
+                        @*<li class="btn-trial" onclick="mostrarLoad();"><a href="@Url.Action("CerrarSesion","Planograma")">Salir <i class="fa fa-sign-out"></i></a></li>*@
+                    }
+                    else
+                    {
+                        <li class="btn-trial" onclick="$('#user').focus();"><a href="#login">Ingresar <i class="fa fa-user"></i></a></li>
+                        @*<li><a href="#login" onclick="$('#user').focus();">Inicie Sesión <i class="fa fa-user"></i></a></li>*@
+                    }
+
+                    <li><a href="#" style="padding:0"><img src="~/Mentor/img/kiosko1.png" style="width:15vh" title="Es muy nuestro" /></a></li>
+
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <div>
+        @RenderBody()
+    </div>
+    <!--Footer-->
+    <footer id="footer" class="footer">
+        <div class="container text-center">
+
+            <h3>Integridad, Respeto, Solidaridad y Austeridad</h3>
+
+
+            <div class="credits">
+                <!--
+                  All the links in the footer should remain intact.
+                  You can delete the links only if you purchased the pro version.
+                  Licensing information: https://bootstrapmade.com/license/
+                  Purchase the pro version with working PHP/AJAX contact form: https://bootstrapmade.com/buy/?theme=Mentor
+                -->
+                Designed by ReadyGo Developers©</a>
+            </div>
+        </div>
+    </footer>
+    <!--/ Footer-->
+
+    <div class="bg_load"></div>
+    <div class="wrapper">
+        <div class="inner">
+            <span>E</span>
+            <span>s</span>
+            <span>p</span>
+            <span>e</span>
+            <span>r</span>
+            <span>e</span>
+        </div>
+    </div>
+
+    @Scripts.Render("~/bundles/scripts")
+    
+    
+
+    @*@RenderSection("scripts", required: false)*@
+</body>
+</html>

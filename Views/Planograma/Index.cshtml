@@ -1,0 +1,1063 @@
+﻿@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_LayoutMaquetado.cshtml";
+}
+<style type="text/css">
+    .filaSeleccionada {
+        color: #fff;
+    }
+
+    .sample-window {
+        width: 350px;
+        padding: 5px;
+        border: 2px solid #186db4;
+        background-color: #fff;
+        display: none;
+    }
+
+    .plainmodal-close {
+        cursor: pointer;
+    }
+
+    .sample-window .plainmodal-close {
+        display: inline-block;
+        padding: 1px 3px;
+        color: #fff;
+        background-color: #224388;
+    }
+
+        .sample-window .plainmodal-close:hover {
+            background-color: #1f99e2;
+        }
+
+    #demo {
+        width: 450px;
+        padding: 20px 40px;
+        color: #fff;
+        background-color: #00aa6a;
+        border-radius: 10px;
+        display: none;
+        font-family: 'Georgia', serif;
+    }
+
+        #demo:after { /* clearfix */
+            content: "";
+            clear: both;
+            display: block;
+        }
+
+        #demo p {
+            font-size: 18px;
+        }
+
+        #demo .sample-head {
+            margin: 0 0 15px;
+            font-size: 36px;
+            font-weight: bold;
+        }
+
+        #demo img {
+            float: left;
+            margin-right: 10px;
+            box-shadow: none;
+        }
+
+        #demo .plainmodal-close {
+            position: absolute;
+            width: 45px;
+            height: 45px;
+            right: -15px;
+            top: -15px;
+            background: url('plainmodal-close.png') no-repeat;
+        }
+
+            #demo .plainmodal-close:hover {
+                background-position: -45px 0;
+            }
+</style>
+@*<link rel="stylesheet" href="http://netdna.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">*@
+<div class="content">
+    <div id="program" class="card">
+        <div class="header">
+            <h2>Planogramas</h2>
+        </div>
+        <div class="body">
+            @Html.Action("ArbolZonificacion")
+
+            @*
+            <div class="container">
+            <div id="treeview_container" class="hummingbird-treeview well h-scroll-large">
+                <!-- <div id="treeview_container" class="hummingbird-treeview"> -->
+                <ul id="treeview" class="hummingbird-base">
+
+                    <li>
+                        <i class="fa fa-minus"></i> <label> <input id="node-0" data-id="custom-0" type="checkbox"> node-0</label>
+                        <ul style="display: block;">
+                            <li>
+                                <i class="fa fa-minus"></i> <label> <input id="node-0-1" data-id="custom-1" type="checkbox">  node-0-1</label>
+                                <ul>
+                                    <li>
+                                        <i class="fa fa-minus"></i> <label> <input id="node-0-1-1" data-id="custom-1-1" type="checkbox"> node-0-1-1</label>
+                                        <ul>
+                                            <li>
+                                                <label> <input class="hummingbirdNoParent" id="node-0-1-1-1" data-id="custom-1-1-1" type="checkbox"> node-0-1-1-1</label>
+                                            </li>
+                                            <li>
+                                                <label> <input class="hummingbirdNoParent" id="node-0-1-1-2" data-id="custom-1-1-2" type="checkbox"> node-0-1-1-2</label>
+                                            </li>
+                                            <li>
+                                                <label> <input class="hummingbirdNoParent" id="node-0-1-1-3" data-id="custom-1-1-3" type="checkbox"> node-0-1-1-3</label>
+                                            </li>
+                                            <li>
+                                                <label> <input class="hummingbirdNoParent" id="double1" data-id="custom-1-1-3" type="checkbox">  node-0-1-1-3</label>
+                                            </li>
+                                            <li>
+                                                <label> <input class="hummingbirdNoParent" id="double2" data-id="custom-1-1-3" type="checkbox">  node-0-1-1-3</label>
+                                            </li>
+                                        </ul>
+                                    </li>
+                                    <li>
+                                        <i class="fa fa-minus"></i> <label> <input id="node-0-1-2" data-id="custom-1-2" type="checkbox"> node-0-1-2</label>
+                                        <ul>
+                                            <li style="color: rgb(200, 200, 200);">
+                                                <label> <input class="hummingbirdNoParent" id="node-0-1-2-1" data-id="custom-1-2-1" type="checkbox" disabled=""> node-0-1-2-1</label>
+                                            </li>
+                                            <li>
+                                                <label> <input class="hummingbirdNoParent" id="node-0-1-2-2" data-id="custom-1-2-2" type="checkbox"> node-0-1-2-2</label>
+                                            </li>
+                                            <li>
+                                                <label> <input class="hummingbirdNoParent" id="node-0-1-2-3" data-id="custom-1-2-3" type="checkbox"> node-0-1-2-3</label>
+                                            </li>
+                                            <li>
+                                                <label> <input class="hummingbirdNoParent" id="double3" data-id="custom-1-1-3" type="checkbox">  node-0-1-1-3</label>
+                                            </li>
+                                        </ul>
+                                    </li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </li>
+
+                </ul>
+            </div>
+            <button class="btn btn-primary" id="checkAll">Check All</button>
+            <button class="btn btn-primary" id="uncheckAll">Uncheck All</button>
+            <button class="btn btn-danger" id="checkNode">Check Node 0-2-2</button>
+        </div>
+            *@
+        </div>
+    </div>
+
+    @if ((ViewBag.Usuario as PlanogramaGen.Models.UsuarioLogin).Perfil == "Admin")
+    {
+        <div id="settings" class="card">
+            <div class="header">
+                <h2>Configuración</h2>
+            </div>
+            <div class="body">
+                <h3 class="center-align">Catálogo de Usuarios y Configuraciones Generales</h3>
+                <fieldset>
+                    <legend>Usuarios</legend>
+                    <div id="tablaUsrs" style="text-align:center"><img src="~/Maquetado/img/loading.gif" style="margin:auto" /></div>
+
+                    <p class="center-align">
+                        <a class="btn btn-primary newUser"><i class="icon ion-plus"></i> Agregar Usuario</a>
+                    </p>
+                </fieldset>
+                <fieldset class="confFolders">
+                    <legend>Rutas</legend>
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label class="" for="exampleInputAmount">Folder de Publicación</label>
+                                <div class="input-group">
+                                    <input type="text" class="form-control" id="rutaPublicacion" value="@ViewBag.RutaPub" placeholder="Escriba la ruta">
+                                    <span class="icon ion-close form-control-feedback-password-error"></span>
+                                    <span class="icon ion-checkmark form-control-feedback-password-success"></span>
+                                    <div class="input-group-addon"><i class="icon ion-folder"></i></div>
+                                </div>
+
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label class="" for="exampleInputAmount">Toma de Imágenes</label>
+                                <div class="input-group">
+                                    <input type="text" class="form-control" id="rutaImagenes" value="@ViewBag.RutaImg" placeholder="Escriba la ruta">
+                                    <span class="icon ion-close form-control-feedback-password-error"></span>
+                                    <span class="icon ion-checkmark form-control-feedback-password-success"></span>
+                                    <div class="input-group-addon"><i class="icon ion-folder"></i></div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-12">
+                            <a class="btn btn-primary saveFolders pull-right"><i class="icon ion-folder"></i> Guardar rutas</a>
+                        </div>
+                    </div>
+                </fieldset>
+            </div>
+        </div>
+    }
+</div>
+<div class="modal fade" id="myModalGenerando" tabindex="0" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                @*<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>*@
+                <h3 class="modal-title" id="myModalLabel">Publicando planogramas</h3>
+            </div>
+            <div class="modal-body" style="max-height: 250px;overflow: auto;">
+                <div style="text-align:center; width:100%">
+                    <div id="divTime" class="badge">00:00</div><br />
+                    <img src="@Url.Content("~/Maquetado/img/loading.gif")" id="loadGif" /><br />
+                    <label id="lblInformacionPub"></label>
+                </div>
+
+                <div class="progress">
+                    <div class="progress-bar progress-bar-success progress-bar-striped" role="progressbar" id="divProgreso"
+                         aria-valuenow="40" aria-valuemin="0" aria-valuemax="100" style="width: 40%">
+                        <span class="sr-only">40% Complete</span>
+                    </div>
+                </div>
+
+                <div class="alert alert-danger" role="alert" id="divErroresPub">
+                    <span id="erroresPub"></span>
+                </div>
+            </div>
+            <div class="modal-footer" id="footerCancelar">
+                <button type="button" class="btn btn-danger" onclick="CancelarGeneracion()">Cancelar</button>
+            </div>
+            <div class="modal-footer" id="footerPub">
+
+                <button type="button" class="btn btn-danger" data-dismiss="modal">Cerrar</button>
+                <button type="button" class="btn btn-success" data-dismiss="modal" onclick="$('#myModal').modal();">Re-Generar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade bd-example-modal-lg" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h3 class="modal-title" id="myModalLabel">Generar Planogramas</h3>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-sm-12">
+                        <div class="form-group">
+                            <p>
+                                <label for="">Categorías</label>
+                                <span style="float:right;"><b>Todas</b> <input type="checkbox" class="all-categories"></span>
+                            </p>
+                            <select name="" id="cmbCategorias" class="form-control chosen-select" data-placeholder="Seleccionar categorías" multiple>
+                                @foreach (PlanogramaGen.Datos.sp_obtener_categorias_Result categoria in ViewBag.Categorias)
+                                {
+                                    <option value="@categoria.CATEGORIA">@categoria.DESCR</option>
+                                }
+
+                            </select>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer" style="text-align:left">
+                <button type="button" class="btn btn-success" onclick="ValidarSeleccion(false)">Generar</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="newUserModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h3 class="modal-title" id="myModalLabel">Nuevo Usuario</h3>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-sm-12">
+                        <div class="form-group">
+                            <label for="">Usuario</label>
+                            <input type="text" maxlength="200" name="Usuario" class="form-control">
+                            <span class="icon ion-close form-control-feedback-error"></span>
+                            <span class="icon ion-checkmark form-control-feedback-success"></span>
+                        </div>
+                    </div>
+                    <div class="col-sm-12">
+                        <div class="form-group">
+                            <label for="">Tipo</label>
+                            <select name="Tipo" id="" class="form-control">
+                                <option value="">Seleccionar Tipo</option>
+                                <option value="Admin">Administrador</option>
+                                <option value="Plano">Planogramador</option>
+                            </select>
+                            <span class="icon ion-close form-control-feedback-select-error"></span>
+                            <span class="icon ion-checkmark form-control-feedback-select-success"></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+                <button type="button" class="btn btn-success saveUser">Guardar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade bd-example-modal-lg" id="myModalSearch" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h3 class="modal-title" id="myModalSearchLabel">Buscar Planogramas</h3>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-sm-12">
+                        <div class="form-group">
+                            <p>
+                                <label for="">Categorías</label>
+                                <span style="float:right;"><b>Todas</b> <input type="checkbox" class="all-categoriesS"></span>
+                            </p>
+                            <select name="" id="cmbCategoriasS" class="form-control chosen-select" data-placeholder="Seleccionar categorías" multiple>
+                                @foreach (PlanogramaGen.Datos.sp_obtener_categorias_Result categoria in ViewBag.Categorias)
+                                {
+                                    <option value="@categoria.CATEGORIA">@categoria.DESCR</option>
+                                }
+
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <div style="max-height:250px; overflow-y:auto; overflow-x:hidden">
+                    <table class="table" style="display:none; width:90%; margin:auto" id="tablaResultadosBusq">
+                        <thead>
+                            <tr>
+                                <th></th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody id="divResultadoBusqueda"></tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+                <button type="button" class="btn btn-success" onclick="ValidarSeleccion(true)">Buscar</button>
+            </div>
+        </div>
+    </div>
+</div>
+<div id="demo">
+    <div class="plainmodal-close"></div>
+    Your Content Goes Here
+
+</div>
+<script type="text/javascript" src="~/Scripts/hummingbird-treeview.js"></script>
+<script type="text/javascript" src="~/Scripts/treeview.js"></script>
+<script>
+    $("#cmbCategoriasS").chosen().change(function () {
+
+        if ($(this).chosen().val().length != $("#cmbCategoriasS option").length) {
+            $(".all-categoriesS").prop("checked", false);
+        }
+    });
+
+    $("#cmbCategorias").chosen().change(function () {
+        if ($(this).chosen().val().length != $("#cmbCategorias option").length) {
+            $(".all-categories").prop("checked", false);
+        }
+    });
+
+    $(document).on('keyup', '#rutaImagenes', function () {
+
+        if ($(this).val() != '') {
+            $(this).closest('.form-group').removeClass('has-error');
+            $(this).closest('.form-group').addClass('has-success');
+        } else {
+            $(this).closest('.form-group').addClass('has-error');
+            $(this).closest('.form-group').removeClass('has-success');
+        }
+    })
+
+    $(document).on('keyup', '#rutaPublicacion', function () {
+
+        if ($(this).val() != '') {
+            $(this).closest('.form-group').removeClass('has-error');
+            $(this).closest('.form-group').addClass('has-success');
+        } else {
+            $(this).closest('.form-group').addClass('has-error');
+            $(this).closest('.form-group').removeClass('has-success');
+        }
+    })
+
+    $(document).on('keyup', 'input[name="Usuario"]', function () {
+
+        if ($(this).val() != '') {
+            $(this).closest('.form-group').removeClass('has-error');
+            $(this).closest('.form-group').addClass('has-success');
+        } else {
+            $(this).closest('.form-group').addClass('has-error');
+            $(this).closest('.form-group').removeClass('has-success');
+        }
+    })
+
+    $(document).on('change', 'select[name="Tipo"]', function () {
+
+        if ($(this).val() != '') {
+            $(this).closest('.form-group').removeClass('has-error');
+            $(this).closest('.form-group').addClass('has-success');
+        } else {
+            $(this).closest('.form-group').addClass('has-error');
+            $(this).closest('.form-group').removeClass('has-success');
+        }
+    })
+
+
+    $(document).on('click', '.saveFolders', function () {
+        var validator = true;
+
+        regex = '/^[a-zA-Z]:\\(\w+\\)*\w*$/';
+
+        if ($('#rutaPublicacion').val() == '') {
+            validator = false;
+            $('#rutaPublicacion').closest('.form-group').addClass('has-error');
+        }
+        //else {
+        //    if (!$('#rutaPublicacion').val().match(regex)) {
+        //        validator = false;
+        //        $('#rutaPublicacion').closest('.form-group').addClass('has-error');
+        //        toastr["error"]("Introduzca una ruta válida.");
+        //    }
+        //}
+
+        if ($('#rutaImagenes').val() == '') {
+            validator = false;
+            $('#rutaImagenes').closest('.form-group').addClass('has-error');
+        }
+        //else {
+        //    if (!$('#rutaImagenes').val().match(regex)) {
+        //        validator = false;
+        //        $('#rutaImagenes').closest('.form-group').addClass('has-error');
+        //        toastr["error"]("Introduzca una ruta válida.");
+        //    }
+        //}
+
+        if (validator) {
+            mostrarLoad();
+            $.ajax({
+                type: "POST",
+                dataType: "json",
+                async: true,
+                url: "@Url.Action("GuardarRutas", "Usuarios")",
+                data: { publicacion: $("#rutaPublicacion").val(), imagenes: $("#rutaImagenes").val() },
+                success: function (msg) {
+                    ocultarLoad();
+                    if (msg.Error) {
+                        toastr["error"]("Error al guardar rutas. " + msg.Mensaje);
+                    } else {
+                        toastr["success"]("Rutas guardadas con éxito.");
+                    }
+                }
+            });
+        }
+    });
+    //evento para validar el formulario y guardar el usuario
+    $(document).on('click', '.saveUser', function () {
+        var validator = true;
+
+        $('#newUserModal .error').remove();
+
+        if ($('input[name="Usuario"]').val() == '') {
+            validator = false;
+            $('input[name="Usuario"]').closest('.form-group').addClass('has-error')
+        }
+
+        if ($('select[name="Tipo"]').val() == '') {
+            validator = false;
+            $('select[name="Tipo"]').closest('.form-group').addClass('has-error')
+        }
+
+        if (validator) {
+            mostrarLoad();
+            $.ajax({
+                type: "POST",
+                dataType: "json",
+                async: true,
+                url: "@Url.Action("GuardarUsuario", "Usuarios")",
+                data: { usuario: $("input[name='Usuario']").val(), tipo: $("select[name='Tipo']").val() },
+                success: function (msg) {
+                    ocultarLoad();
+                    if (msg.Error) {
+                        toastr["error"]("Error al guardar Usuario. " + msg.Mensaje);
+                    } else {
+                        $("#newUserModal").modal("hide");
+                        $("#tablaUsrs").load("@Url.Action("ObtenerUsuarios","Usuarios")");
+                    }
+                }
+            });
+        } else {
+            return false;
+        }
+    })
+
+    //evento para limpiar y mostrar la modal de nuevo usuario
+    $(document).on('click', '.newUser', function () {
+        $('#newUserModal .error').remove();
+        $('input[name="Usuario"]').val('')
+        $('select[name="Tipo"]').val('')
+        $('#newUserModal').modal();
+    })
+
+    function isNumeric(num) {
+        //return !isNaN(num)
+        if (num.match(/^-{0,1}\d+$/)) {//entero
+            return true;
+        } else if (num.match(/^\d+\.\d+$/)) { //decimal
+            return false;
+        } else {
+            return false;
+        }
+    }
+    function ValidarSeleccion(search) {
+        mostrarLoad();
+        if (search) {
+            $("#divResultadoBusqueda").empty();
+
+            TreeList1.GetSelectedNodeValues('ID', BuscarPlanogramas);
+        } else {
+            TreeList1.GetSelectedNodeValues('ID', GenerarPlanogramas);
+        }
+    }
+
+    function visualizarArchivo(planograma) {
+        window.open("@Url.Action("VisualizarPlanograma", "Planograma")" + "?planograma=" + planograma);
+    }
+
+    function BuscarPlanogramas(values) {
+
+        //$("#divTime").timer('remove');
+        if (values.length == 0) {
+            ocultarLoad();
+            toastr["error"]("Seleccione al menos una tienda.");
+            return;
+        }
+
+        tiendas = [];
+        f = 0;
+        for (i = 0; i < values.length; i++) {
+            if (isNumeric(values[i])) {
+                tiendas[f] = values[i];
+                f++;
+            }
+        }
+
+        categorias = $("#cmbCategoriasS").chosen().val();//.replace(/\(Seleccionar todo/g, "").split(textSeparator);
+
+
+        if (categorias.length == 0) {
+            ocultarLoad();
+            toastr["error"]("Seleccione al menos una categoría.");
+
+            return;
+        }
+        //$("#myModal").modal("hide");
+        valorMaximo = tiendas.length * categorias.length;
+
+        //$("#lblInformacionPub").html("0 de " + valorMaximo);
+        //$("#divProgreso").prop("aria-valuenow", "0");
+        //$("#divProgreso").css("width", "0%");
+        //$("#divProgreso").html("0%");
+
+        //$("#footerPub").hide();
+        //$("#footerCancelar").show();
+        //$("#loadGif").show();
+
+        contador = 0;
+        incremento = 0;
+
+        indexTiendas = 0;
+        indexCategorias = 0;
+        ajaxBusquedaPlanograma();
+
+        $("#tablaResultadosBusq").show();
+
+
+    }
+
+    function ajaxBusquedaPlanograma() {
+        console.log("categoria:" + categorias[indexCategorias] + ",tienda:" + tiendas[indexTiendas]);
+        $.ajax({
+            type: "POST",
+            dataType: "json",
+            async: true,
+            url: "@Url.Action("BuscarPlanograma", "Planograma")",
+            data: { tiendas: tiendas[indexTiendas], categorias: categorias[indexCategorias] },
+            success: function (msg) {
+
+                if (!msg.Error) {
+                    $("#divResultadoBusqueda").prepend(
+                        "<tr><td><button title='Visualizar Planograma...' class='btn btn-success' onclick='visualizarArchivo(\"" + msg.Planograma + "\")'>" +
+                        "<i class='ion ion-ios-paper-outline'></i></button></td><td>" + msg.Mensaje + "</td></tr>"
+                    );
+                } else {
+                    $("#divResultadoBusqueda").append(
+                        "<tr><td></td><td>" + msg.Mensaje + "</td></tr>"
+                    );
+                }
+            }, complete: function (e) {
+                contador++;
+                incremento = (contador * 100) / valorMaximo;
+
+                if (incremento >= 100) {
+                    ocultarLoad();
+                    toastr["success"]("Busqueda finalizada.");
+
+                    $('#cmbCategoriasS').val('').trigger('chosen:updated');
+                    $(".all-categoriesS").prop("checked", false);
+
+                    $('#tablaResultadosBusq').DataTable({
+                        "pageLength": 5,
+                        "aLengthMenu": [
+                            [5, 10, 15, 25, -1],
+                            [5, 10, 15, 25, "Todos"]
+                        ],
+                        "order": [[0, "desc"]],
+                        "language": {
+                            "emptyTable": "No hay información disponible",
+                            "info": "Mostrando _START_ de _END_ de _TOTAL_ registros totales",
+                            "infoEmpty": "Mostrando 0 de 0 de 0 registros",
+                            "infoFiltered": "(filtered from _MAX_ total entries)",
+                            "search": "Busqueda:",
+                            "lengthMenu": "Mostrando _MENU_ registros",
+                            "paginate": {
+                                "first": "Inicio",
+                                "last": "Ultimo",
+                                "next": "Siguiente",
+                                "previous": "Anterior"
+                            },
+                        },
+                        "bDestroy": true
+
+
+                    });
+                } else {
+                    if (tiendas.length > indexTiendas + 1) {
+                        //  console.log("otra tienda");
+                        indexTiendas++;
+                        ajaxBusquedaPlanograma(indexCategorias, indexTiendas);
+                    }
+                    else if (categorias.length > indexCategorias + 1) {
+                        //console.log("otra categoria");
+                        indexTiendas = 0;
+                        indexCategorias++;
+                        ajaxBusquedaPlanograma(indexCategorias, 0);
+                    }
+                }
+            }
+        });
+    }
+
+    indexCategorias = 0;
+    indexTiendas = 0;
+    function CancelarGeneracion() {
+        console.log("cancelar");
+        indexCategorias = categorias.length;
+        indexTiendas = tiendas.length;
+        $("#divTime").timer('pause');
+        $("#divTime").css("background-color", "#777777");
+
+        $("#divProgreso").prop("aria-valuenow", 100);
+        $("#divProgreso").attr("style", "width:" + "100%");
+        $("#divProgreso").attr("class", "progress-bar progress-bar-info progress-bar-striped");
+
+        $("#footerPub").show();
+        $("#footerCancelar").hide();
+        $("#loadGif").hide();
+
+
+        toastr["warning"]("Publicación Cancelada.");
+    }
+
+    contador = 0;
+    incremento = 0;
+    valorMaximo = 0;
+    tiendas = [];
+    categorias = [];
+
+    function GenerarPlanogramas(values) {
+
+        $("#divTime").timer('remove');
+        if (values.length == 0) {
+            ocultarLoad();
+            toastr["error"]("Seleccione al menos una tienda.");
+
+            //ocultarLoad();
+            return;
+        }
+
+        tiendas = [];
+        f = 0;
+        for (i = 0; i < values.length; i++) {
+            console.log("nodo:" + values[i]);
+            if (isNumeric(values[i])) {
+                tiendas[f] = values[i];
+                f++;
+            }
+        }
+
+        //console.log($("#cmbCategorias").chosen().val());
+
+        categorias = $("#cmbCategorias").chosen().val();//.replace(/\(Seleccionar todo/g, "").split(textSeparator);
+
+
+        if (categorias.length == 0) {
+            ocultarLoad();
+            toastr["error"]("Seleccione al menos una categoría.");
+
+            return;
+        }
+        $("#myModal").modal("hide");
+
+        valorMaximo = tiendas.length * categorias.length;
+
+        $("#lblInformacionPub").html("0 de " + valorMaximo);
+        $("#divProgreso").prop("aria-valuenow", "0");
+        $("#divProgreso").css("width", "0%");
+        $("#divProgreso").html("0%");
+        $("#erroresPub").empty();
+        $("#divErroresPub").hide();
+        $("#footerPub").hide();
+        $("#footerCancelar").show();
+        $("#loadGif").show();
+
+        $("#myModalGenerando").modal({ show: true, keyboard: false, backdrop: "static" });
+
+        $('#myModalGenerando').on('shown.bs.modal', function (e) {
+            $("#divTime").timer({
+                action: 'start',
+                seconds: 0
+            });
+            $("#divTime").css("background-color", "#b94a48");
+            ocultarLoad();
+
+            incremento = 0;
+            contador = 0;
+            indexTiendas = 0;
+            indexCategorias = 0;
+            ajaxGenerarPlanograma();
+        });
+
+        //for (i = 0; i < categorias.length; i++) {
+        //    for (j = 0; j < tiendas.length; j++) {
+
+        //    }
+        //}
+    }
+
+    function ajaxGenerarPlanograma() {
+        console.log("categoria:" + categorias[indexCategorias] + ",tienda:" + tiendas[indexTiendas]);
+        $.ajax({
+            type: "POST",
+            dataType: "json",
+            async: true,
+            url: "@Url.Action("ActualizarPlanogramas", "Planograma")",
+            data: { tiendas: tiendas[indexTiendas], categorias: categorias[indexCategorias] },
+            complete: function (e, xhr, settings) {
+                console.log("status ajax:" + e.status);
+                if (e.status == 200) {
+                    if (!$("#footerPub").is(":visible")) {
+
+                        contador++;
+
+                        $("#lblInformacionPub").html(contador + " de " + valorMaximo);
+                        incremento = (contador * 100) / valorMaximo;
+                        console.log("contador " + contador);
+                        console.log("incremento " + incremento);
+                        $("#divProgreso").prop("aria-valuenow", incremento);
+                        $("#divProgreso").attr("style", "width:" + incremento + "%");
+                        $("#divProgreso").html(Math.round(incremento) + "%");
+
+                        if (incremento >= 50 && incremento <= 80) {
+                            $("#divProgreso").attr("class", "progress-bar progress-bar-danger progress-bar-striped");
+                        } else if (incremento > 80 && incremento <= 99) {
+                            $("#divProgreso").attr("class", "progress-bar progress-bar-warning progress-bar-striped");
+                        } else if (incremento >= 100) {
+                            $("#divTime").timer('pause');
+                            $("#divTime").css("background-color", "#777777");
+
+                            $("#divProgreso").attr("class", "progress-bar progress-bar-info progress-bar-striped");
+
+                            $("#footerPub").show();
+                            $("#footerCancelar").hide();
+                            $("#loadGif").hide();
+
+
+                            toastr["success"]("Planogramas Publicados.");
+
+                        }
+
+                        if (incremento < 100) {
+                            if (tiendas.length > indexTiendas + 1) {
+                                //  console.log("otra tienda");
+                                indexTiendas++;
+                                ajaxGenerarPlanograma(indexCategorias, indexTiendas);
+                            }
+                            else if (categorias.length > indexCategorias + 1) {
+                                //console.log("otra categoria");
+                                indexTiendas = 0;
+                                indexCategorias++;
+                                ajaxGenerarPlanograma(indexCategorias, 0);
+                            }
+                        }
+                    }
+                } else { //if(e.status==409){
+                    window.location.href = "@Url.Action("CerrarSesion","Planograma")";
+                }
+            },
+            success: function (msg) {
+                if (!$("#footerpub").is(":visible")) {
+                    //msg.error = true;
+                    //msg.Mensaje = "Planograma Tienda. Vea la excepción interna para obtener detalles";
+                    if (!msg.error) {
+
+                    } else {
+
+                        if (msg.Mensaje.indexOf("Vea la excepción interna para obtener detalles") > -1) {
+                            CancelarGeneracion();
+                            window.location.href = "@Url.Action("CerrarSesion","Planograma")";
+                        } else {
+                            $("#errorespub").prepend("<i class='ion ion-close-circled'></i> " + msg.mensaje + "</br>");
+                            $("#diverrorespub").show();
+                        }
+                    }
+                }
+            }
+        });
+    }
+
+    anterior = 0;
+    function BuscarNodo(key) {
+        var rowCount = $('#TreeList1_D > tbody > tr').length;
+        if ($("#txtBuscar").val() == "") return;
+        i = 0;
+        find = false;
+        if (key == 13) {
+            //TreeList1.ExpandAll();
+            totalRows = $("#TreeList1_D > tbody > tr").length;
+
+            $("#TreeList1_D > tbody > tr").each(function (e) {
+
+                var nodeKey = $(this).attr("id").replace(/\TreeList1_R-/g, "");
+                var nodeState = TreeList1.GetNodeState(nodeKey);
+
+                if (nodeState == "Collapsed") {
+                    TreeList1.ExpandNode(nodeKey);
+
+                    //return false;
+                }
+
+                $(this).removeClass("filaSeleccionada");
+                $(this).css("background-color", "");
+                if ($(this).text().toUpperCase().indexOf($("#txtBuscar").val().toUpperCase()) > -1) {
+
+                    if (i > anterior) {
+                        anterior = i;//$(this).text();
+                        $(this).addClass("filaSeleccionada");
+                        $(this).css("background-color", "#5fcf80");
+
+                        var b = $(window);
+                        var row = $(this);//$('#tableid').find('tr').eq(line);
+
+                        b.scrollTop(row.offset().top - (b.height() / 2));
+
+                        find = true;
+                        return false;
+                    }
+                }
+                if (i == (rowCount - 1)) {
+                    anterior = 0;
+                }
+                i++;
+                if (i + 1 == totalRows && !find) {
+                    toastr["warning"]("Expadiendo nodos de zonificación. Vuelva a intentar.");
+
+                }
+            });
+        }
+    }
+
+
+    $("a[href^='#']").click(function (e) {
+        e.preventDefault();
+
+        var y = 60;
+
+        var position = $($(this).attr("href")).offset().top - y;
+
+        $("body, html").animate({
+            scrollTop: position
+        } /* speed */);
+    });
+
+    $('input[type=file]').change(function (event) {
+        var tmppath = URL.createObjectURL(event.target.files[0]);
+        console.log(tmppath)
+    });
+
+    /*function getfolder(e) {
+        var files = e.target.files;
+        var path = files[0].webkitRelativePath;
+        var newpath = files[0].webkitFullPath;
+        var Folder = path.split("/");
+        console.log(newpath);
+    }*/
+
+
+    $(document).ready(function () {
+        console.log("Error Index", "@ViewBag.Error");
+
+        $(document).keypress(function (event) {
+            //console.log('Handler for .keypress() called. - ' + event.charCode);//
+            if (event.charCode != "13") return;
+            if ($('#myModalSearch').hasClass('in')) {
+                ValidarSeleccion(true);
+            } else if ($('#myModal').hasClass('in')) {
+                ValidarSeleccion(false);
+            }
+        });
+        $('#myModal').on('shown.bs.modal', function (e) {
+            //console.log("shown:" + $("#cmbCategorias_chosen > ul > li > .chosen-search-input default"));
+
+            //$('#cmbCategorias').trigger('chosen:activate');
+
+            $("#cmbCategorias_chosen").children('.chosen-choices').children('.search-field').children('input[type="text"]').focus();
+            //$("#cmbCategorias_chosen").addClass('chzn-container-active');
+        });
+        $('#myModalSearch').on('shown.bs.modal', function (e) {
+            $("#divResultadoBusqueda").empty();
+            $('#tablaResultadosBusq').DataTable().destroy();
+            $("#tablaResultadosBusq").hide();
+            $("#cmbCategoriasS_chosen").children('.chosen-choices').children('.search-field').children('input[type="text"]').focus();
+            //    $("#myModalSearch .modal-body").height(93);
+
+            //    $(document).on('click', '#cmbCategoriasS_chosen .chosen-choices', function () {
+            //        console.log("chosen choices");
+            //        $("#myModalSearch .modal-body").height(250);
+            //    });
+            //    $(document).on('click', '#cmbCategoriasS_chosen .chosen-results li', function () {
+            //        console.log("chosen results");
+            //        $("#myModalSearch .modal-body").height(93);
+            //    });
+
+            //    //$(document).on('click', '#myModalSearch .modal-body', function (e) {
+            //    //    $("#myModalSearch .modal-body").height(93);
+            //    //});
+
+            //    //$('#cmbCategoriasS').on('click', '.search-choice-close', function (event) {
+            //    //    console.log("cerrar chosen");
+            //    //    $("#myModalSearch .modal-body").height(93);
+            //    //    // do something
+            //    //})
+        });
+        $('#newUserModal').on('shown.bs.modal', function (e) {
+            $("input[name='Usuario']").focus();
+        });
+
+        $("#tablaUsrs").load("@Url.Action("ObtenerUsuarios","Usuarios")");
+
+        //$('.table').DataTable({
+        //    "language": {
+        //        "emptyTable": "No hay información disponible",
+        //        "info": "Mostrando _START_ de _END_ de _TOTAL_ registros totales",
+        //        "infoEmpty": "Mostrando 0 de 0 de 0 registros",
+        //        "infoFiltered": "(filtered from _MAX_ total entries)",
+        //        "search": "Busqueda:",
+        //        "lengthMenu": "Mostrando _MENU_ registros",
+        //        "paginate": {
+        //            "first": "Inicio",
+        //            "last": "Ultimo",
+        //            "next": "Siguiente",
+        //            "previous": "Anterior"
+        //        },
+        //    }
+
+        //});
+
+        $(".chosen-select").chosen({
+            search_contains: true,
+            no_results_text: "No existe la categoría."
+        });
+        $('.chosen-container').width('100%');
+
+
+        $(".all-categories").click(function () {
+            if ($(this).is(':checked')) {
+                $('#cmbCategorias option').prop('selected', true);
+                $('#cmbCategorias').trigger('chosen:updated');
+            } else {
+                $('#cmbCategorias option').prop('selected', false);
+                $('#cmbCategorias').trigger('chosen:updated');
+            }
+        });
+        $(".all-categoriesS").click(function () {
+            if ($(this).is(':checked')) {
+                $('#cmbCategoriasS option').prop('selected', true);
+                $('#cmbCategoriasS').trigger('chosen:updated');
+            } else {
+                $('#cmbCategoriasS option').prop('selected', false);
+                $('#cmbCategoriasS').trigger('chosen:updated');
+            }
+        });
+    });
+    $(document).on('click', '.removeUser', function () {
+
+        var row = $(this).closest('tr'); //<-- Esto guarda la fila del boton para eliminarla despues
+        var id = $(this).data('id');     //<-- Aqui guarda el id del usuario a eliminar
+        swal({
+            title: "¿Esta seguro?",
+            text: "El usuario se eliminara definitivamente",
+            icon: "warning",
+            buttons: true,
+            dangerMode: true,
+            buttons: ["No, Cancelar", "Si, Eliminar"],
+        })
+        .then((willDelete) => {
+            if (willDelete) {
+                //row.remove(); //<-- Aqui elimina la fila
+                //en caso de que si lo quiera eliminar aqui ejecutas el ajax
+
+                //EliminarUsuario
+                mostrarLoad();
+                $.ajax({
+                    type: "POST",
+                    dataType: "json",
+                    async: true,
+                    url: "@Url.Action("EliminarUsuario", "Usuarios")",
+                    data: { idusr: id },
+                    success: function (msg) {
+                        if (!msg.Error) {
+                            ocultarLoad();
+                            $("#tablaUsrs").load("@Url.Action("ObtenerUsuarios","Usuarios")");
+                            swal("Exito! El usuario se ha eliminado correctamente", {
+                                icon: "success",
+                            });
+                        } else {
+                            swal("Error! El usuario no pudo eliminarse. " + msg.Mensaje, {
+                                icon: "error",
+                            });
+                        }
+                    }
+                });
+            } else {
+                //Este es en caso de cancelar, igual y lo puedes quitar
+                //swal("El usuario se salvo!");
+            }
+        });
+    })
+</script>

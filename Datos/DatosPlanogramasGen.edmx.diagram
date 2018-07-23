@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="4124729f9d524634b875243bc3908322" Name="Diagram1" ZoomLevel="108">
+        <EntityTypeShape EntityType="PlanogramaGenModel.tb_usuarios" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="false" />
+        <EntityTypeShape EntityType="PlanogramaGenModel.ReglasNegocio" Width="1.5" PointX="2.375" PointY="0.75" IsExpanded="false" />
+        <EntityTypeShape EntityType="PlanogramaGenModel.PlanogramaCenefas" Width="1.5" PointX="0.75" PointY="2.375" IsExpanded="false" />
+        <EntityTypeShape EntityType="PlanogramaGenModel.PlanogramaObjetos" Width="1.5" PointX="0.75" PointY="2.875" IsExpanded="false" />
+        <EntityTypeShape EntityType="PlanogramaGenModel.PlanogramaEncabezado" Width="1.5" PointX="0.75" PointY="1.375" IsExpanded="false" />
+        <EntityTypeShape EntityType="PlanogramaGenModel.PlanogramaProductos" Width="1.5" PointX="0.75" PointY="1.875" IsExpanded="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

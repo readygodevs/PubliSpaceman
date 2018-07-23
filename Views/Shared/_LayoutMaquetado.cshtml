@@ -1,0 +1,135 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <title>Publicador de Planogramas</title>
+
+    <link rel="stylesheet" href="@Url.Content("~/Maquetado/css/app.css")">
+    <link rel="stylesheet" href="@Url.Content("~/Maquetado/css/chosen.min.css")">
+    <link rel="stylesheet" href="@Url.Content("~/Maquetado/css/ionicons.css")">
+    <link rel="stylesheet" href="@Url.Content("~/Maquetado/css/sweetalert.css")">
+    <link rel="stylesheet" href="@Url.Content("~/Maquetado/css/toast.css")">
+    <link rel="stylesheet" href="@Url.Content("~/Maquetado/css/datatables.min.css")">
+
+    <script src="@Url.Content("~/Maquetado/js/jquery.js")"></script>
+    <script src="@Url.Content("~/Maquetado/js/toast.js")"></script>
+    <script src="@Url.Content("~/Maquetado/js/app.js")"></script>
+    <script src="@Url.Content("~/Maquetado/js/validatorForm.js")"></script>
+    <script src="@Url.Content("~/Maquetado/js/chosen.jquery.min.js")"></script>
+    <script src="@Url.Content("~/Maquetado/js/jquery.datatable.min.js")"></script>
+    <script src="@Url.Content("~/Maquetado/js/dataTables.bootstrap.min.js")"></script>
+    <script src="@Url.Content("~/Maquetado/js/sweetalert.min.js")"></script>
+    <script src="@Url.Content("~/Maquetado/js/timer.jquery.min.js")"></script>
+    <script src="@Url.Content("~/Maquetado/js/jquery.plainmodal.min.js")"></script>
+
+
+    <script type="text/javascript">
+        jQuery(document).ready(function ($) {
+            "use strict";
+            //ocultarLoad();
+        });
+        toastr.options = {
+            "closeButton": true,
+            "debug": false,
+
+            "newestOnTop": false,
+            "progressBar": false,
+            "positionClass": "toast-top-right",
+            "preventDuplicates": false,
+            "onclick": null,
+            "showDuration": "300",
+            "hideDuration": "1000",
+            "timeOut": "5000",
+            "extendedTimeOut": "1000",
+            "showEasing": "swing",
+            "hideEasing": "linear",
+            "showMethod": "fadeIn",
+            "hideMethod": "fadeOut"
+        }
+    </script>
+</head>
+<body id="admin">
+    <div class="bg_load"></div>
+    <div class="wrapper">
+        <div class="inner">
+            <span>E</span>
+            <span>s</span>
+            <span>p</span>
+            <span>e</span>
+            <span>r</span>
+            <span>e</span>
+        </div>
+    </div>
+    <aside>
+        <img src="@Url.Content("~/Maquetado/img/logo.svg")" alt="">
+        <ul class="menu">
+            <li>
+                <a href="#program">
+                    <i class="icon ion-stats-bars"></i> Planogramas
+                </a>
+            </li>
+            <li style="cursor:pointer">
+                <a data-toggle="modal" data-target="#myModal">
+                    <i class="icon ion-document"></i> Generar
+                </a>
+            </li>
+            <li style="cursor:pointer">
+                <a data-toggle="modal" data-target="#myModalSearch">
+                    <i class="icon ion-document-text"></i> Buscar
+                </a>
+            </li>
+            @if ((ViewBag.Usuario as PlanogramaGen.Models.UsuarioLogin).Perfil == "Admin")
+            {
+                <li>
+                    <a href="#settings">
+                        <i class="icon ion-gear-a"></i> Configuración
+                    </a>
+                </li>
+            }
+            <li>
+                <div class="form-group has-feedback">
+                    <div class="input-group">
+                        <input type="text" onkeypress="BuscarNodo(event.keyCode)" class="form-control" placeholder="Buscar tienda..." id="txtBuscar" aria-describedby="inputGroupSuccess1Status">
+                        <span class="input-group-addon"><i class="icon ion-search"></i></span>
+                    </div>
+                </div>
+            </li>
+        </ul>
+    </aside>
+
+    <div class="body">
+        <header>
+            <h2>Publicador de Planogramas</h2>
+            <div class="dropdown admin1-drop">
+                <button class="btn dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                    @Html.Raw("Bienvenid@")
+                    <span class="caret"></span>
+                </button>
+                <ul class="dropdown-menu " aria-labelledby="dropdownMenu1">
+                    <li><a href="#">@Html.Raw((ViewBag.Usuario as PlanogramaGen.Models.UsuarioLogin).Nombre)</a></li>
+                    <li><a href="@Url.Action("CerrarSesion","Planograma")">Cerrar Sesión</a></li>
+                    @*<li><a href="#">Another action</a></li>
+                        <li><a href="#">Something else here</a></li>
+                        <li role="separator" class="divider"></li>
+                        <li><a href="#">Separated link</a></li>*@
+                </ul>
+            </div>
+        </header>
+
+        @RenderBody()
+
+    </div>
+    <footer>
+        <h3 class="center-align">Integridad, Resperto, Solidaridad y Austeridad</h3>
+        <p class="center-align">Designed by ReadyGo Developers &copy;</p>
+        <img src="@Url.Content("~/Maquetado/img/isologo.png")" alt="">
+    </footer>
+
+
+</body>
+
+
+</html>

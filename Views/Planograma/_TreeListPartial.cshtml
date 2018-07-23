@@ -1,0 +1,19 @@
+@{
+	var treeList = Html.DevExpress().TreeList(settings => {
+        settings.Name = "TreeList";
+        settings.CallbackRouteValues = new { Controller = "Planograma", Action = "TreeListPartial" };
+
+
+				settings.KeyFieldName = "ID";
+		settings.ParentFieldName = "ParentID";
+				settings.Columns.Add(
+            column => {
+                column.FieldName = "Area";
+            }
+        );
+
+		settings.SettingsPager.Visible = false;
+		settings.SettingsSelection.Enabled = true;
+	});
+}
+@treeList.Bind(Model).GetHtml()

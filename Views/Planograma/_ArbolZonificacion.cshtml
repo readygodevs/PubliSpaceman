@@ -1,0 +1,56 @@
+@Html.DevExpress().GetStyleSheets(
+        new StyleSheet { ExtensionSuite = ExtensionSuite.NavigationAndLayout },
+        new StyleSheet { ExtensionSuite = ExtensionSuite.Editors },
+        new StyleSheet { ExtensionSuite = ExtensionSuite.TreeList }
+    )
+@Html.DevExpress().GetScripts(
+        new Script { ExtensionSuite = ExtensionSuite.NavigationAndLayout },
+        new Script { ExtensionSuite = ExtensionSuite.Editors },
+        new Script { ExtensionSuite = ExtensionSuite.TreeList }
+    )
+
+@{
+    var treeList = Html.DevExpress().TreeList(settings =>
+    {
+        settings.Name = "TreeList1";
+
+        settings.CallbackRouteValues = new { Controller = "Planograma", Action = "ArbolZonificacion" };
+
+        settings.KeyFieldName = "ID";
+        settings.ParentFieldName = "ParentID";
+        
+        settings.Columns.Add(
+    column =>
+    {
+        column.FieldName = "Area";
+    }
+);
+
+        settings.SettingsPager.Visible = true;
+        //settings.SettingsCookies.Enabled = true;
+        //settings.SettingsCookies.StoreExpandedNodes = true;
+        //settings.SettingsCookies.StoreSelection = true;
+
+        settings.SettingsSelection.Enabled = true;
+        settings.SettingsSelection.Recursive = true;
+        //settings.SettingsSelection.AllowSelectAll = true;
+
+
+        //settings.SettingsBehavior.AutoExpandAllNodes = true;
+
+        settings.SettingsBehavior.AllowSort = false;
+        settings.SettingsBehavior.AllowDragDrop = false;
+
+        settings.PreRender = (sender, e) =>
+        {
+            ((MVCxTreeList)sender).ExpandToLevel(1);
+            ((MVCxTreeList)sender).ExpandToLevel(2);
+            ((MVCxTreeList)sender).ExpandToLevel(3);
+            //((MVCxTreeList)sender).ExpandToLevel(4);
+        };
+
+
+    });
+}
+@treeList.Bind(Model).GetHtml()
+@*</div>*@

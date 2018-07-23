@@ -1,0 +1,64 @@
+﻿@model IEnumerable<PlanogramaGen.Datos.tb_usuarios>
+
+@{
+    ViewBag.Title = "Navegador_Usrs";
+    Layout = null;
+}
+<style type="text/css">
+    #tblUsuarios_wrapper{
+        width:90%;
+    }
+</style>
+<h2>Listado de Usuarios</h2>
+
+<button class="btn btn-success btn-sm"><i class="fa fa-plus-square"></i></button>
+<table id="tblUsuarios" class="display" cellspacing="0" width="90%" style="margin:auto">
+    <thead>
+        <tr>
+            @*<th>
+                @Html.DisplayNameFor(model => model.IdUsuario)
+            </th>*@
+            <th>
+                @Html.DisplayNameFor(model => model.Login)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Nombre)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Perfil)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                @*<td>
+                        @Html.DisplayFor(modelItem => item.IdUsuario)
+                    </td>*@
+                <td>
+                    @Html.DisplayFor(modelItem => item.Login)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Nombre)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Perfil)
+                </td>
+                
+                <td>
+                    <button class="btn btn-danger btn-sm"><i class="fa fa-times-rectangle"></i></button>
+                    <button class="btn btn-warning btn-sm"><i class="fa fa-pencil-square"></i></button>
+                </td>
+            </tr>
+        }
+    </tbody>
+    <tfoot></tfoot>
+</table>
+<script type="text/javascript">
+    jQuery(document).ready(function ($) {
+        $("#tblUsuarios").DataTable();
+    });
+</script>

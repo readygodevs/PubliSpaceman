@@ -1,0 +1,516 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="PlanogramaGenModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="PlanogramaCenefas">
+          <Key>
+            <PropertyRef Name="PLN_ID" />
+            <PropertyRef Name="FIXEL_ID" />
+          </Key>
+          <Property Name="PLN_ID" Type="int" Nullable="false" />
+          <Property Name="FIXEL_ID" Type="varchar" MaxLength="150" Nullable="false" />
+          <Property Name="X_CENEFA" Type="float" Nullable="false" />
+          <Property Name="Y_CENEFA" Type="float" Nullable="false" />
+          <Property Name="COLOUR_CENEFA" Type="int" Nullable="false" />
+          <Property Name="SEGMENT_WIDTH" Type="float" Nullable="false" />
+          <Property Name="SEGMENT_WIDTH_PIXEL" Type="float" Nullable="false" />
+          <Property Name="SEGMENT_HEIGHT" Type="float" Nullable="false" />
+          <Property Name="SEGMENT_HEIGHT_PIXEL" Type="float" Nullable="false" />
+          <Property Name="LABEL_CENEFA" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="FIXEL_TYPE" Type="int" Nullable="false" />
+          <Property Name="SEGMENT" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="PlanogramaEncabezado">
+          <Key>
+            <PropertyRef Name="PLN_ID" />
+          </Key>
+          <Property Name="PLN_ID" Type="int" Nullable="false" />
+          <Property Name="PLANOGRAM" Type="varchar" MaxLength="150" Nullable="false" />
+          <Property Name="PLAZA" Type="varchar" MaxLength="250" Nullable="false" />
+          <Property Name="CATEGORIA" Type="varchar" MaxLength="150" Nullable="false" />
+          <Property Name="DATE_CREATE" Type="datetime" Nullable="false" />
+          <Property Name="USER" Type="varchar" MaxLength="150" Nullable="false" />
+        </EntityType>
+        <EntityType Name="PlanogramaObjetos">
+          <Key>
+            <PropertyRef Name="PLN_ID" />
+            <PropertyRef Name="FIXEL_ID" />
+            <PropertyRef Name="SEGMENT" />
+          </Key>
+          <Property Name="PLN_ID" Type="int" Nullable="false" />
+          <Property Name="FIXEL_ID" Type="varchar" MaxLength="150" Nullable="false" />
+          <Property Name="SEGMENT" Type="int" Nullable="false" />
+          <Property Name="TYPE" Type="int" Nullable="false" />
+          <Property Name="COLOURISCLEAR" Type="int" Nullable="false" />
+          <Property Name="FILL_COLOR" Type="int" Nullable="false" />
+          <Property Name="COLOUR" Type="int" Nullable="false" />
+          <Property Name="SIZE_VAL" Type="int" />
+          <Property Name="FONT_NAME" Type="varchar" MaxLength="150" />
+          <Property Name="LABEL" Type="varchar" MaxLength="350" />
+          <Property Name="TEXTFIELD" Type="varchar" MaxLength="350" />
+          <Property Name="XPIX" Type="float" Nullable="false" />
+          <Property Name="YPIX" Type="float" Nullable="false" />
+          <Property Name="WIDTH" Type="float" Nullable="false" />
+          <Property Name="WIDTH_PIXEL" Type="float" Nullable="false" />
+          <Property Name="HEIGHT" Type="float" Nullable="false" />
+          <Property Name="HEIGHT_PIXEL" Type="float" Nullable="false" />
+        </EntityType>
+        <EntityType Name="PlanogramaProductos">
+          <Key>
+            <PropertyRef Name="PLN_ID" />
+            <PropertyRef Name="PRODUCT_ID" />
+            <PropertyRef Name="FIXEL_ID" />
+            <PropertyRef Name="X_PROD" />
+            <PropertyRef Name="Y_PROD" />
+          </Key>
+          <Property Name="PLN_ID" Type="int" Nullable="false" />
+          <Property Name="PRODUCT_ID" Type="varchar" MaxLength="150" Nullable="false" />
+          <Property Name="FIXEL_ID" Type="varchar" MaxLength="150" Nullable="false" />
+          <Property Name="PROD_NAME" Type="varchar" MaxLength="250" Nullable="false" />
+          <Property Name="X_PROD" Type="float" Nullable="false" />
+          <Property Name="Y_PROD" Type="float" Nullable="false" />
+          <Property Name="PRODUCT_WIDTH" Type="float" Nullable="false" />
+          <Property Name="PRODUCT_WIDTH_REAL" Type="float" Nullable="false" />
+          <Property Name="PRODUCT_WIDTH_PIXEL" Type="float" Nullable="false" />
+          <Property Name="PRODUCT_HEIGHT" Type="float" Nullable="false" />
+          <Property Name="PRODUCT_HEIGHT_PIXEL" Type="float" Nullable="false" />
+          <Property Name="ORIENTATION" Type="int" Nullable="false" />
+          <Property Name="MERCH_STYLE" Type="int" Nullable="false" />
+          <Property Name="VERTICAL" Type="int" Nullable="false" />
+          <Property Name="TOTAL_FACINGS" Type="int" Nullable="false" />
+          <Property Name="UNITS_CASE_DEEP" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="ReglasNegocio">
+          <Key>
+            <PropertyRef Name="RENClave" />
+          </Key>
+          <Property Name="RENClave" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Descripcion" Type="varchar" MaxLength="250" Nullable="false" />
+          <Property Name="Regla" Type="varchar" MaxLength="500" Nullable="false" />
+        </EntityType>
+        <EntityType Name="tb_usuarios">
+          <Key>
+            <PropertyRef Name="IdUsuario" />
+          </Key>
+          <Property Name="IdUsuario" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Login" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Perfil" Type="varchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <Function Name="sp_arbol_zonificacion" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="sp_eliminar_planograma" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="plnid" Type="int" Mode="In" />
+        </Function>
+        <Function Name="sp_obtener_categorias" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="sp_obtener_planograma" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="Tienda" Type="varchar" Mode="In" />
+          <Parameter Name="Categoria" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="sp_obtener_segmentos_labels" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="PLN_ID" Type="int" Mode="In" />
+        </Function>
+        <Function Name="sp_validar_usuario" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="Usuario" Type="varchar" Mode="In" />
+        </Function>
+        <EntityContainer Name="PlanogramaGenModelStoreContainer">
+          <EntitySet Name="PlanogramaCenefas" EntityType="Self.PlanogramaCenefas" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="PlanogramaEncabezado" EntityType="Self.PlanogramaEncabezado" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="PlanogramaObjetos" EntityType="Self.PlanogramaObjetos" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="PlanogramaProductos" EntityType="Self.PlanogramaProductos" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ReglasNegocio" EntityType="Self.ReglasNegocio" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tb_usuarios" EntityType="Self.tb_usuarios" Schema="dbo" store:Type="Tables" />
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="PlanogramaGenModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityContainer Name="PlanogramaGenEntities" annotation:LazyLoadingEnabled="true">
+          <FunctionImport Name="sp_validar_usuario" ReturnType="Collection(String)">
+          <Parameter Name="Usuario" Mode="In" Type="String" />
+          </FunctionImport>
+          <EntitySet Name="tb_usuarios" EntityType="PlanogramaGenModel.tb_usuarios" />
+          <EntitySet Name="ReglasNegocio" EntityType="PlanogramaGenModel.ReglasNegocio" />
+          <EntitySet Name="PlanogramaCenefas" EntityType="PlanogramaGenModel.PlanogramaCenefas" />
+          <EntitySet Name="PlanogramaObjetos" EntityType="PlanogramaGenModel.PlanogramaObjetos" />
+          <FunctionImport Name="sp_eliminar_planograma">
+          <Parameter Name="plnid" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="sp_obtener_categorias" ReturnType="Collection(PlanogramaGenModel.sp_obtener_categorias_Result)" />
+          <FunctionImport Name="sp_arbol_zonificacion" ReturnType="Collection(PlanogramaGenModel.sp_arbol_zonificacion_Result)" />
+          <EntitySet Name="PlanogramaEncabezado" EntityType="PlanogramaGenModel.PlanogramaEncabezado" />
+          <EntitySet Name="PlanogramaProductos" EntityType="PlanogramaGenModel.PlanogramaProductos" />
+          <FunctionImport Name="sp_obtener_segmentos_labels" ReturnType="Collection(PlanogramaGenModel.sp_obtener_segmentos_labels_Result)">
+          <Parameter Name="PLN_ID" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="sp_obtener_planograma" ReturnType="Collection(PlanogramaGenModel.sp_obtener_planograma_Result)">
+            <Parameter Name="Tienda" Mode="In" Type="String" />
+            <Parameter Name="Categoria" Mode="In" Type="String" />
+          </FunctionImport>
+        </EntityContainer>
+        <EntityType Name="tb_usuarios">
+          <Key>
+            <PropertyRef Name="IdUsuario" />
+          </Key>
+          <Property Name="IdUsuario" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Login" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Perfil" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="ReglasNegocio">
+          <Key>
+            <PropertyRef Name="RENClave" />
+          </Key>
+          <Property Name="RENClave" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Descripcion" Type="String" Nullable="false" MaxLength="250" FixedLength="false" Unicode="false" />
+          <Property Name="Regla" Type="String" Nullable="false" MaxLength="500" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="PlanogramaCenefas">
+          <Key>
+            <PropertyRef Name="PLN_ID" />
+            <PropertyRef Name="FIXEL_ID" />
+          </Key>
+          <Property Name="PLN_ID" Type="Int32" Nullable="false" />
+          <Property Name="FIXEL_ID" Type="String" Nullable="false" MaxLength="150" FixedLength="false" Unicode="false" />
+          <Property Name="X_CENEFA" Type="Double" Nullable="false" />
+          <Property Name="Y_CENEFA" Type="Double" Nullable="false" />
+          <Property Name="COLOUR_CENEFA" Type="Int32" Nullable="false" />
+          <Property Name="SEGMENT_WIDTH" Type="Double" Nullable="false" />
+          <Property Name="SEGMENT_WIDTH_PIXEL" Type="Double" Nullable="false" />
+          <Property Name="SEGMENT_HEIGHT" Type="Double" Nullable="false" />
+          <Property Name="SEGMENT_HEIGHT_PIXEL" Type="Double" Nullable="false" />
+          <Property Name="LABEL_CENEFA" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="FIXEL_TYPE" Type="Int32" Nullable="false" />
+          <Property Name="SEGMENT" Type="Int32" Nullable="false" />
+        </EntityType>
+        <EntityType Name="PlanogramaObjetos">
+          <Key>
+            <PropertyRef Name="PLN_ID" />
+            <PropertyRef Name="FIXEL_ID" />
+            <PropertyRef Name="SEGMENT" />
+          </Key>
+          <Property Name="PLN_ID" Type="Int32" Nullable="false" />
+          <Property Name="FIXEL_ID" Type="String" Nullable="false" MaxLength="150" FixedLength="false" Unicode="false" />
+          <Property Name="SEGMENT" Type="Int32" Nullable="false" />
+          <Property Name="TYPE" Type="Int32" Nullable="false" />
+          <Property Name="COLOURISCLEAR" Type="Int32" Nullable="false" />
+          <Property Name="FILL_COLOR" Type="Int32" Nullable="false" />
+          <Property Name="COLOUR" Type="Int32" Nullable="false" />
+          <Property Name="SIZE_VAL" Type="Int32" />
+          <Property Name="FONT_NAME" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
+          <Property Name="LABEL" Type="String" MaxLength="350" FixedLength="false" Unicode="false" />
+          <Property Name="TEXTFIELD" Type="String" MaxLength="350" FixedLength="false" Unicode="false" />
+          <Property Name="XPIX" Type="Double" Nullable="false" />
+          <Property Name="YPIX" Type="Double" Nullable="false" />
+          <Property Name="WIDTH" Type="Double" Nullable="false" />
+          <Property Name="WIDTH_PIXEL" Type="Double" Nullable="false" />
+          <Property Name="HEIGHT" Type="Double" Nullable="false" />
+          <Property Name="HEIGHT_PIXEL" Type="Double" Nullable="false" />
+        </EntityType>
+        <ComplexType Name="sp_obtener_categorias_Result">
+          <Property Type="String" Name="CATEGORIA" Nullable="true" MaxLength="120" />
+          <Property Type="String" Name="DESCR" Nullable="true" MaxLength="241" />
+        </ComplexType>
+        <ComplexType Name="sp_arbol_zonificacion_Result">
+          <Property Type="String" Name="Area" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="ID" Nullable="true" MaxLength="16" />
+          <Property Type="String" Name="ParentID" Nullable="true" MaxLength="6" />
+        </ComplexType>
+        <EntityType Name="PlanogramaEncabezado">
+          <Key>
+            <PropertyRef Name="PLN_ID" />
+          </Key>
+          <Property Name="PLN_ID" Type="Int32" Nullable="false" />
+          <Property Name="PLANOGRAM" Type="String" Nullable="false" MaxLength="150" FixedLength="false" Unicode="false" />
+          <Property Name="PLAZA" Type="String" Nullable="false" MaxLength="250" FixedLength="false" Unicode="false" />
+          <Property Name="CATEGORIA" Type="String" Nullable="false" MaxLength="150" FixedLength="false" Unicode="false" />
+          <Property Name="DATE_CREATE" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="USER" Type="String" Nullable="false" MaxLength="150" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="PlanogramaProductos">
+          <Key>
+            <PropertyRef Name="PLN_ID" />
+            <PropertyRef Name="PRODUCT_ID" />
+            <PropertyRef Name="FIXEL_ID" />
+            <PropertyRef Name="X_PROD" />
+            <PropertyRef Name="Y_PROD" />
+          </Key>
+          <Property Name="PLN_ID" Type="Int32" Nullable="false" />
+          <Property Name="PRODUCT_ID" Type="String" Nullable="false" MaxLength="150" FixedLength="false" Unicode="false" />
+          <Property Name="FIXEL_ID" Type="String" Nullable="false" MaxLength="150" FixedLength="false" Unicode="false" />
+          <Property Name="PROD_NAME" Type="String" Nullable="false" MaxLength="250" FixedLength="false" Unicode="false" />
+          <Property Name="X_PROD" Type="Double" Nullable="false" />
+          <Property Name="Y_PROD" Type="Double" Nullable="false" />
+          <Property Name="PRODUCT_WIDTH" Type="Double" Nullable="false" />
+          <Property Name="PRODUCT_WIDTH_REAL" Type="Double" Nullable="false" />
+          <Property Name="PRODUCT_WIDTH_PIXEL" Type="Double" Nullable="false" />
+          <Property Name="PRODUCT_HEIGHT" Type="Double" Nullable="false" />
+          <Property Name="PRODUCT_HEIGHT_PIXEL" Type="Double" Nullable="false" />
+          <Property Name="ORIENTATION" Type="Int32" Nullable="false" />
+          <Property Name="MERCH_STYLE" Type="Int32" Nullable="false" />
+          <Property Name="VERTICAL" Type="Int32" Nullable="false" />
+          <Property Name="TOTAL_FACINGS" Type="Int32" Nullable="false" />
+          <Property Name="UNITS_CASE_DEEP" Type="Int32" Nullable="false" />
+        </EntityType>
+        <ComplexType Name="sp_obtener_segmentos_labels_Result">
+          <Property Type="String" Name="FIXEL_ID" Nullable="false" MaxLength="50" />
+          <Property Type="Int16" Name="SEGMENT" Nullable="true" />
+          <Property Type="Int16" Name="TYPE" Nullable="true" />
+          <Property Type="Int16" Name="COLOURISCLEAR" Nullable="true" />
+          <Property Type="Int16" Name="FILL_COLOR" Nullable="true" />
+          <Property Type="Int32" Name="COLOUR" Nullable="true" />
+          <Property Type="Double" Name="SIZE_VAL" Nullable="true" />
+          <Property Type="Double" Name="SIZE_VAL_PIX" Nullable="true" />
+          <Property Type="String" Name="FONT_NAME" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="LABEL" Nullable="true" MaxLength="255" />
+          <Property Type="String" Name="TEXTFIELD" Nullable="true" MaxLength="255" />
+          <Property Type="Double" Name="XPIX" Nullable="true" />
+          <Property Type="Double" Name="YPIX" Nullable="true" />
+          <Property Type="Double" Name="WIDTH" Nullable="true" />
+          <Property Type="Double" Name="WIDTH_PIXEL" Nullable="true" />
+          <Property Type="Double" Name="HEIGHT" Nullable="true" />
+          <Property Type="Double" Name="HEIGHT_PIXEL" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="sp_obtener_planograma_Result">
+          <Property Type="String" Name="PLANOGRAM" Nullable="true" MaxLength="120" />
+          <Property Type="Int32" Name="PLN_ID" Nullable="false" />
+          <Property Type="String" Name="PLAZA" Nullable="true" MaxLength="120" />
+          <Property Type="String" Name="CATEGORIA" Nullable="true" MaxLength="120" />
+          <Property Type="String" Name="PRODUCT_ID" Nullable="true" MaxLength="4000" />
+          <Property Type="String" Name="PROD_NAME" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="FIXEL_ID" Nullable="false" MaxLength="50" />
+          <Property Type="Double" Name="X_PROD" Nullable="true" />
+          <Property Type="Double" Name="Y_PROD" Nullable="true" />
+          <Property Type="Double" Name="Z_PROD" Nullable="true" />
+          <Property Type="Double" Name="X_CENEFA" Nullable="true" />
+          <Property Type="Double" Name="Y_CENEFA" Nullable="true" />
+          <Property Type="Int32" Name="COLOUR_CENEFA" Nullable="true" />
+          <Property Type="Double" Name="SEGMENT_WIDTH" Nullable="true" />
+          <Property Type="Double" Name="SEGMENT_WIDTH_PIXEL" Nullable="true" />
+          <Property Type="Double" Name="SEGMENT_HEIGHT" Nullable="true" />
+          <Property Type="Double" Name="SEGMENT_HEIGHT_PIXEL" Nullable="true" />
+          <Property Type="String" Name="LABEL_CENEFA" Nullable="true" MaxLength="23" />
+          <Property Type="Int16" Name="FIXEL_TYPE" Nullable="true" />
+          <Property Type="Int32" Name="SEGMENT" Nullable="true" />
+          <Property Type="Double" Name="PRODUCT_WIDTH" Nullable="true" />
+          <Property Type="Double" Name="PRODUCT_WIDTH_REAL" Nullable="true" />
+          <Property Type="Double" Name="PRODUCT_WIDTH_PIXEL" Nullable="true" />
+          <Property Type="Double" Name="PRODUCT_HEIGHT" Nullable="true" />
+          <Property Type="Double" Name="PRODUCT_HEIGHT_PIXEL" Nullable="true" />
+          <Property Type="Int16" Name="ORIENTATION" Nullable="true" />
+          <Property Type="Int16" Name="MERCH_STYLE" Nullable="true" />
+          <Property Type="Int16" Name="VERTICAL" Nullable="true" />
+          <Property Type="Int16" Name="TOTAL_FACINGS" Nullable="true" />
+          <Property Type="Int32" Name="UNITS_CASE_DEEP" Nullable="true" />
+          <Property Type="String" Name="FONTID" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="FONT_CENEFA" Nullable="true" MaxLength="50" />
+          <Property Type="Double" Name="FONT_SIZE_CENEFA" Nullable="true" />
+          <Property Type="Int16" Name="FONT_BOLD_CENEFA" Nullable="true" />
+          <Property Type="Int16" Name="SPREAD_PRODUCTS" Nullable="true" />
+        </ComplexType>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="PlanogramaGenModelStoreContainer" CdmEntityContainer="PlanogramaGenEntities">
+          <FunctionImportMapping FunctionImportName="sp_validar_usuario" FunctionName="PlanogramaGenModel.Store.sp_validar_usuario" />
+          <EntitySetMapping Name="tb_usuarios">
+            <EntityTypeMapping TypeName="PlanogramaGenModel.tb_usuarios">
+              <MappingFragment StoreEntitySet="tb_usuarios">
+                <ScalarProperty Name="Perfil" ColumnName="Perfil" />
+                <ScalarProperty Name="Login" ColumnName="Login" />
+                <ScalarProperty Name="IdUsuario" ColumnName="IdUsuario" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ReglasNegocio">
+            <EntityTypeMapping TypeName="PlanogramaGenModel.ReglasNegocio">
+              <MappingFragment StoreEntitySet="ReglasNegocio">
+                <ScalarProperty Name="Regla" ColumnName="Regla" />
+                <ScalarProperty Name="Descripcion" ColumnName="Descripcion" />
+                <ScalarProperty Name="RENClave" ColumnName="RENClave" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="PlanogramaCenefas">
+            <EntityTypeMapping TypeName="PlanogramaGenModel.PlanogramaCenefas">
+              <MappingFragment StoreEntitySet="PlanogramaCenefas">
+                <ScalarProperty Name="SEGMENT" ColumnName="SEGMENT" />
+                <ScalarProperty Name="FIXEL_TYPE" ColumnName="FIXEL_TYPE" />
+                <ScalarProperty Name="LABEL_CENEFA" ColumnName="LABEL_CENEFA" />
+                <ScalarProperty Name="SEGMENT_HEIGHT_PIXEL" ColumnName="SEGMENT_HEIGHT_PIXEL" />
+                <ScalarProperty Name="SEGMENT_HEIGHT" ColumnName="SEGMENT_HEIGHT" />
+                <ScalarProperty Name="SEGMENT_WIDTH_PIXEL" ColumnName="SEGMENT_WIDTH_PIXEL" />
+                <ScalarProperty Name="SEGMENT_WIDTH" ColumnName="SEGMENT_WIDTH" />
+                <ScalarProperty Name="COLOUR_CENEFA" ColumnName="COLOUR_CENEFA" />
+                <ScalarProperty Name="Y_CENEFA" ColumnName="Y_CENEFA" />
+                <ScalarProperty Name="X_CENEFA" ColumnName="X_CENEFA" />
+                <ScalarProperty Name="FIXEL_ID" ColumnName="FIXEL_ID" />
+                <ScalarProperty Name="PLN_ID" ColumnName="PLN_ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="PlanogramaObjetos">
+            <EntityTypeMapping TypeName="PlanogramaGenModel.PlanogramaObjetos">
+              <MappingFragment StoreEntitySet="PlanogramaObjetos">
+                <ScalarProperty Name="HEIGHT_PIXEL" ColumnName="HEIGHT_PIXEL" />
+                <ScalarProperty Name="HEIGHT" ColumnName="HEIGHT" />
+                <ScalarProperty Name="WIDTH_PIXEL" ColumnName="WIDTH_PIXEL" />
+                <ScalarProperty Name="WIDTH" ColumnName="WIDTH" />
+                <ScalarProperty Name="YPIX" ColumnName="YPIX" />
+                <ScalarProperty Name="XPIX" ColumnName="XPIX" />
+                <ScalarProperty Name="TEXTFIELD" ColumnName="TEXTFIELD" />
+                <ScalarProperty Name="LABEL" ColumnName="LABEL" />
+                <ScalarProperty Name="FONT_NAME" ColumnName="FONT_NAME" />
+                <ScalarProperty Name="SIZE_VAL" ColumnName="SIZE_VAL" />
+                <ScalarProperty Name="COLOUR" ColumnName="COLOUR" />
+                <ScalarProperty Name="FILL_COLOR" ColumnName="FILL_COLOR" />
+                <ScalarProperty Name="COLOURISCLEAR" ColumnName="COLOURISCLEAR" />
+                <ScalarProperty Name="TYPE" ColumnName="TYPE" />
+                <ScalarProperty Name="SEGMENT" ColumnName="SEGMENT" />
+                <ScalarProperty Name="FIXEL_ID" ColumnName="FIXEL_ID" />
+                <ScalarProperty Name="PLN_ID" ColumnName="PLN_ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="sp_eliminar_planograma" FunctionName="PlanogramaGenModel.Store.sp_eliminar_planograma" />
+          <FunctionImportMapping FunctionImportName="sp_obtener_categorias" FunctionName="PlanogramaGenModel.Store.sp_obtener_categorias">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="PlanogramaGenModel.sp_obtener_categorias_Result">
+                <ScalarProperty Name="CATEGORIA" ColumnName="CATEGORIA" />
+                <ScalarProperty Name="DESCR" ColumnName="DESCR" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="sp_arbol_zonificacion" FunctionName="PlanogramaGenModel.Store.sp_arbol_zonificacion">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="PlanogramaGenModel.sp_arbol_zonificacion_Result">
+                <ScalarProperty Name="Area" ColumnName="Area" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="ParentID" ColumnName="ParentID" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <EntitySetMapping Name="PlanogramaEncabezado">
+            <EntityTypeMapping TypeName="PlanogramaGenModel.PlanogramaEncabezado">
+              <MappingFragment StoreEntitySet="PlanogramaEncabezado">
+                <ScalarProperty Name="USER" ColumnName="USER" />
+                <ScalarProperty Name="DATE_CREATE" ColumnName="DATE_CREATE" />
+                <ScalarProperty Name="CATEGORIA" ColumnName="CATEGORIA" />
+                <ScalarProperty Name="PLAZA" ColumnName="PLAZA" />
+                <ScalarProperty Name="PLANOGRAM" ColumnName="PLANOGRAM" />
+                <ScalarProperty Name="PLN_ID" ColumnName="PLN_ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="PlanogramaProductos">
+            <EntityTypeMapping TypeName="PlanogramaGenModel.PlanogramaProductos">
+              <MappingFragment StoreEntitySet="PlanogramaProductos">
+                <ScalarProperty Name="UNITS_CASE_DEEP" ColumnName="UNITS_CASE_DEEP" />
+                <ScalarProperty Name="TOTAL_FACINGS" ColumnName="TOTAL_FACINGS" />
+                <ScalarProperty Name="VERTICAL" ColumnName="VERTICAL" />
+                <ScalarProperty Name="MERCH_STYLE" ColumnName="MERCH_STYLE" />
+                <ScalarProperty Name="ORIENTATION" ColumnName="ORIENTATION" />
+                <ScalarProperty Name="PRODUCT_HEIGHT_PIXEL" ColumnName="PRODUCT_HEIGHT_PIXEL" />
+                <ScalarProperty Name="PRODUCT_HEIGHT" ColumnName="PRODUCT_HEIGHT" />
+                <ScalarProperty Name="PRODUCT_WIDTH_PIXEL" ColumnName="PRODUCT_WIDTH_PIXEL" />
+                <ScalarProperty Name="PRODUCT_WIDTH_REAL" ColumnName="PRODUCT_WIDTH_REAL" />
+                <ScalarProperty Name="PRODUCT_WIDTH" ColumnName="PRODUCT_WIDTH" />
+                <ScalarProperty Name="Y_PROD" ColumnName="Y_PROD" />
+                <ScalarProperty Name="X_PROD" ColumnName="X_PROD" />
+                <ScalarProperty Name="PROD_NAME" ColumnName="PROD_NAME" />
+                <ScalarProperty Name="FIXEL_ID" ColumnName="FIXEL_ID" />
+                <ScalarProperty Name="PRODUCT_ID" ColumnName="PRODUCT_ID" />
+                <ScalarProperty Name="PLN_ID" ColumnName="PLN_ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="sp_obtener_segmentos_labels" FunctionName="PlanogramaGenModel.Store.sp_obtener_segmentos_labels">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="PlanogramaGenModel.sp_obtener_segmentos_labels_Result">
+                <ScalarProperty Name="FIXEL_ID" ColumnName="FIXEL_ID" />
+                <ScalarProperty Name="SEGMENT" ColumnName="SEGMENT" />
+                <ScalarProperty Name="TYPE" ColumnName="TYPE" />
+                <ScalarProperty Name="COLOURISCLEAR" ColumnName="COLOURISCLEAR" />
+                <ScalarProperty Name="FILL_COLOR" ColumnName="FILL_COLOR" />
+                <ScalarProperty Name="COLOUR" ColumnName="COLOUR" />
+                <ScalarProperty Name="SIZE_VAL" ColumnName="SIZE_VAL" />
+                <ScalarProperty Name="SIZE_VAL_PIX" ColumnName="SIZE_VAL_PIX" />
+                <ScalarProperty Name="FONT_NAME" ColumnName="FONT_NAME" />
+                <ScalarProperty Name="LABEL" ColumnName="LABEL" />
+                <ScalarProperty Name="TEXTFIELD" ColumnName="TEXTFIELD" />
+                <ScalarProperty Name="XPIX" ColumnName="XPIX" />
+                <ScalarProperty Name="YPIX" ColumnName="YPIX" />
+                <ScalarProperty Name="WIDTH" ColumnName="WIDTH" />
+                <ScalarProperty Name="WIDTH_PIXEL" ColumnName="WIDTH_PIXEL" />
+                <ScalarProperty Name="HEIGHT" ColumnName="HEIGHT" />
+                <ScalarProperty Name="HEIGHT_PIXEL" ColumnName="HEIGHT_PIXEL" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="sp_obtener_planograma" FunctionName="PlanogramaGenModel.Store.sp_obtener_planograma">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="PlanogramaGenModel.sp_obtener_planograma_Result">
+                <ScalarProperty Name="PLANOGRAM" ColumnName="PLANOGRAM" />
+                <ScalarProperty Name="PLN_ID" ColumnName="PLN_ID" />
+                <ScalarProperty Name="PLAZA" ColumnName="PLAZA" />
+                <ScalarProperty Name="CATEGORIA" ColumnName="CATEGORIA" />
+                <ScalarProperty Name="PRODUCT_ID" ColumnName="PRODUCT_ID" />
+                <ScalarProperty Name="PROD_NAME" ColumnName="PROD_NAME" />
+                <ScalarProperty Name="FIXEL_ID" ColumnName="FIXEL_ID" />
+                <ScalarProperty Name="X_PROD" ColumnName="X_PROD" />
+                <ScalarProperty Name="Y_PROD" ColumnName="Y_PROD" />
+                <ScalarProperty Name="Z_PROD" ColumnName="Z_PROD" />
+                <ScalarProperty Name="X_CENEFA" ColumnName="X_CENEFA" />
+                <ScalarProperty Name="Y_CENEFA" ColumnName="Y_CENEFA" />
+                <ScalarProperty Name="COLOUR_CENEFA" ColumnName="COLOUR_CENEFA" />
+                <ScalarProperty Name="SEGMENT_WIDTH" ColumnName="SEGMENT_WIDTH" />
+                <ScalarProperty Name="SEGMENT_WIDTH_PIXEL" ColumnName="SEGMENT_WIDTH_PIXEL" />
+                <ScalarProperty Name="SEGMENT_HEIGHT" ColumnName="SEGMENT_HEIGHT" />
+                <ScalarProperty Name="SEGMENT_HEIGHT_PIXEL" ColumnName="SEGMENT_HEIGHT_PIXEL" />
+                <ScalarProperty Name="LABEL_CENEFA" ColumnName="LABEL_CENEFA" />
+                <ScalarProperty Name="FIXEL_TYPE" ColumnName="FIXEL_TYPE" />
+                <ScalarProperty Name="SEGMENT" ColumnName="SEGMENT" />
+                <ScalarProperty Name="PRODUCT_WIDTH" ColumnName="PRODUCT_WIDTH" />
+                <ScalarProperty Name="PRODUCT_WIDTH_REAL" ColumnName="PRODUCT_WIDTH_REAL" />
+                <ScalarProperty Name="PRODUCT_WIDTH_PIXEL" ColumnName="PRODUCT_WIDTH_PIXEL" />
+                <ScalarProperty Name="PRODUCT_HEIGHT" ColumnName="PRODUCT_HEIGHT" />
+                <ScalarProperty Name="PRODUCT_HEIGHT_PIXEL" ColumnName="PRODUCT_HEIGHT_PIXEL" />
+                <ScalarProperty Name="ORIENTATION" ColumnName="ORIENTATION" />
+                <ScalarProperty Name="MERCH_STYLE" ColumnName="MERCH_STYLE" />
+                <ScalarProperty Name="VERTICAL" ColumnName="VERTICAL" />
+                <ScalarProperty Name="TOTAL_FACINGS" ColumnName="TOTAL_FACINGS" />
+                <ScalarProperty Name="UNITS_CASE_DEEP" ColumnName="UNITS_CASE_DEEP" />
+                <ScalarProperty Name="FONTID" ColumnName="FONTID" />
+                <ScalarProperty Name="FONT_CENEFA" ColumnName="FONT_CENEFA" />
+                <ScalarProperty Name="FONT_SIZE_CENEFA" ColumnName="FONT_SIZE_CENEFA" />
+                <ScalarProperty Name="FONT_BOLD_CENEFA" ColumnName="FONT_BOLD_CENEFA" />
+                <ScalarProperty Name="SPREAD_PRODUCTS" ColumnName="SPREAD_PRODUCTS" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="Ninguno" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

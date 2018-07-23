@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Index</title>
+    <link href="Mentor/css/font-awesome.min.css" rel="stylesheet">
+<link href="Mentor/css/bootstrap.min.css" rel="stylesheet">
+<link href="Mentor/css/imagehover.min.css" rel="stylesheet">
+<link href="Mentor/css/style.css" rel="stylesheet">
+<link href="Mentor/css/jquery.dataTables.min.css" rel="stylesheet">
+
+
+    <script src="Mentor/js/jquery.min.js"></script>
+
+    <script type="text/javascript">
+        jQuery(document).ready(function ($) {
+            "use strict";
+            ocultarLoad();
+        });
+    </script>
+</head>
+<body>
+    <!--Navigation bar-->
+    <nav class="navbar navbar-default navbar-fixed-top">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+
+                
+                <a class="navbar-brand" href="#">Planograma<span>GEN</span></a>
+                
+            </div>
+            <div class="collapse navbar-collapse" id="myNavbar" style="text-align:center">
+                <ul class="nav navbar-nav navbar-right">
+                    
+                        <li class="btn-trial" onclick="$('#user').focus();"><a href="#login">Ingresar <i class="fa fa-user"></i></a></li>
+
+                    <li><a href="#" style="padding:0"><img src="Mentor/img/kiosko1.png" style="width:15vh" title="Es muy nuestro"></a></li>
+
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <div>
+        
+
+
+
+<!--/ Modal box-->
+<!--Banner-->
+<div class="banner">
+    <div class="bg-color">
+        <div class="container">
+            <div class="row">
+                <div class="banner-text text-center">
+                    <div class="text-border">
+                        <h2 class="text-dec">Generador de Planogramas</h2>
+                    </div>
+                    <div class="intro-para text-center quote">
+                        <p class="big-text">Super Kiosko</p>
+                        <p class="small-text">Piso de Ventas</p>
+                        
+                    </div>
+                    <a href="#login" class="mouse-hover" onclick="$('#user').focus();">
+                        <div class="mouse"></div>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!--/ Banner-->
+<!--/ Modal box-->
+<!--Contact-->
+<section id="login" class="section-padding">
+    <div class="container">
+        <div class="row">
+            <div class="header-section text-center">
+                <h2>Iniciar Sesión</h2>
+                
+                <hr class="bottom-line">
+            </div>
+            <div id="sendmessage">Ingresando...</div>
+            <div id="errormessage"></div>
+            <form action="" method="post" role="form" class="contactForm" id="loginForm">
+                <div class="col-md-6 col-sm-6 col-xs-12 left">
+                    <div class="form-group">
+                        <input type="text" name="user" class="form-control form" id="user" placeholder="Usuario" data-rule="required" data-msg="* Introduzca el usuario">
+                        <div class="validation"></div>
+                    </div>
+                    
+                </div>
+
+                <div class="col-md-6 col-sm-6 col-xs-12 right">
+                    
+                    <div class="form-group">
+                        <div class="input-group">
+                            <input type="text" autocomplete="off" class="form-control" name="pass" id="pass" placeholder="Contraseña" data-rule="required" data-msg="* Introduzca la contraseña" style="-webkit-text-security: disc;">
+                            <div class="validation"></div>
+                            <span id="spanEye" class="input-group-btn" style="vertical-align:top"><button class="btn btn-secondary" type="button" style="height:34px;padding:0px 20px"><i class="fa fa-eye"></i></button></span>
+
+                        </div>
+                        <div class="validation"></div>
+                    </div>
+                </div>
+
+                <div class="col-xs-12">
+                    <!-- Button -->
+                    <button type="submit" id="submit" name="submit" class="form contact-form-button light-form-button oswald light">Log In <i class="fa fa-user"></i></button>
+                </div>
+            </form>
+
+        </div>
+    </div>
+</section>
+<!--/ Contact-->
+
+<script type="text/javascript">
+
+    jQuery(document).ready(function ($) {
+        "use strict";
+
+        //console.log($("#pass").css("height"));
+
+        //$("#spanEye").css("height", $("#pass").css("height"));
+
+        ValidatorForm($("#loginForm"), "Home/ValidarUsr", "window.location.href='Planograma';", "");
+
+        $("#pass").attr("style", "-webkit-text-security: disc;");
+        $("#spanEye").mouseup(function () {
+            $("#pass").attr("style", "-webkit-text-security: disc;");
+        });
+        $("#spanEye").mousedown(function () {
+            $("#pass").removeAttr("style");
+        });
+    });
+</script>
+
+    </div>
+    <!--Footer-->
+    <footer id="footer" class="footer">
+        <div class="container text-center">
+
+            <h3>Integridad, Respeto, Solidaridad y Austeridad</h3>
+
+
+            <div class="credits">
+                <!--
+                  All the links in the footer should remain intact.
+                  You can delete the links only if you purchased the pro version.
+                  Licensing information: https://bootstrapmade.com/license/
+                  Purchase the pro version with working PHP/AJAX contact form: https://bootstrapmade.com/buy/?theme=Mentor
+                -->
+                Designed by ReadyGo Developers©
+            </div>
+        </div>
+    </footer>
+    <!--/ Footer-->
+
+    <div class="bg_load" style="display: none;"></div>
+    <div class="wrapper" style="display: none;">
+        <div class="inner">
+            <span>E</span>
+            <span>s</span>
+            <span>p</span>
+            <span>e</span>
+            <span>r</span>
+            <span>e</span>
+        </div>
+    </div>
+
+    <script src="Mentor/js/jquery.easing.min.js"></script>
+<script src="Mentor/js/bootstrap.min.js"></script>
+<script src="Mentor/js/custom.js"></script>
+<script src="Mentor/js/validatorForm.js"></script>
+<script src="Mentor/js/jquery.dataTables.min.js"></script>
+
+    
+    
+
+    
+
+
+</body>
+</html>

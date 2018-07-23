@@ -1,0 +1,51 @@
+﻿@model IEnumerable<PlanogramaGen.Datos.tb_usuarios>
+
+@{
+    ViewBag.Title = "ObtenerUsuarios";
+    Layout = null;
+}
+
+<table class="table">
+    <thead>
+        <tr>
+            <th></th>
+            <th>Usuario</th>
+            <th>Perfil</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @*<a class="btn btn-warning"><i class="icon ion-edit"></i></a>*@
+                    <a class="btn btn-danger removeUser" data-id="@item.IdUsuario"><i class="icon ion-trash-b"></i></a>
+                </td>
+                <td>@item.Login</td>
+                <td>@Html.Raw(item.Perfil=="Admin"?"Administrador":"Planogramador")</td>
+            </tr>
+            }
+    </tbody>
+</table>
+<script type="text/javascript">
+    $("#tablaUsrs").attr("style", "");
+    $(document).ready(function () {
+        $('.table').DataTable({
+            "language": {
+                "emptyTable": "No hay información disponible",
+                "info": "Mostrando _START_ de _END_ de _TOTAL_ registros totales",
+                "infoEmpty": "Mostrando 0 de 0 de 0 registros",
+                "infoFiltered": "(filtered from _MAX_ total entries)",
+                "search": "Busqueda:",
+                "lengthMenu": "Mostrando _MENU_ registros",
+                "paginate": {
+                    "first": "Inicio",
+                    "last": "Ultimo",
+                    "next": "Siguiente",
+                    "previous": "Anterior"
+                },
+            }
+
+        });
+    });
+</script>

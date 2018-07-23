@@ -1,0 +1,101 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_LayoutMentor.cshtml";
+}
+
+<!--/ Modal box-->
+<!--Banner-->
+<div class="banner">
+    <div class="bg-color">
+        <div class="container">
+            <div class="row">
+                <div class="banner-text text-center">
+                    <div class="text-border">
+                        <h2 class="text-dec">Generador de Planogramas</h2>
+                    </div>
+                    <div class="intro-para text-center quote">
+                        <p class="big-text">Super Kiosko</p>
+                        <p class="small-text">Piso de Ventas</p>
+                        @*<a href="#footer" class="btn get-quote">GET A QUOTE</a>*@
+                    </div>
+                    <a href="#login" class="mouse-hover" onclick="$('#user').focus();">
+                        <div class="mouse"></div>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!--/ Banner-->
+<!--/ Modal box-->
+<!--Contact-->
+<section id="login" class="section-padding">
+    <div class="container">
+        <div class="row">
+            <div class="header-section text-center">
+                <h2>Iniciar Sesión</h2>
+                @*<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Exercitationem nesciunt vitae,<br> maiores, magni dolorum aliquam.</p>*@
+                <hr class="bottom-line">
+            </div>
+            <div id="sendmessage">Ingresando...</div>
+            <div id="errormessage"></div>
+            <form action="" method="post" role="form" class="contactForm" id="loginForm">
+                <div class="col-md-6 col-sm-6 col-xs-12 left">
+                    <div class="form-group">
+                        <input type="text" name="user" class="form-control form" id="user" placeholder="Usuario" data-rule="required" data-msg="* Introduzca el usuario" />
+                        <div class="validation"></div>
+                    </div>
+                    @*<div class="form-group">
+                            <input type="text" class="form-control" name="subject" id="subject" placeholder="Subject" data-rule="minlen:4" data-msg="Please enter at least 8 chars of subject" />
+                            <div class="validation"></div>
+                        </div>*@
+                </div>
+
+                <div class="col-md-6 col-sm-6 col-xs-12 right">
+                    @*<div class="form-group">
+                            <textarea class="form-control" name="message" rows="5" data-rule="required" data-msg="Please write something for us" placeholder="Message"></textarea>
+                            <div class="validation"></div>
+                        </div>*@
+                    <div class="form-group">
+                        <div class="input-group">
+                            <input type="text" autocomplete="off" class="form-control" name="pass" id="pass" placeholder="Contraseña" data-rule="required" data-msg="* Introduzca la contraseña" />
+                            <div class="validation"></div>
+                            <span id="spanEye" class="input-group-btn" style="vertical-align:top"><button class="btn btn-secondary" type="button" style="height:34px;padding:0px 20px"><i class="fa fa-eye"></i></button></span>
+
+                        </div>
+                        <div class="validation"></div>
+                    </div>
+                </div>
+
+                <div class="col-xs-12">
+                    <!-- Button -->
+                    <button type="submit" id="submit" name="submit" class="form contact-form-button light-form-button oswald light">Log In <i class="fa fa-user"></i></button>
+                </div>
+            </form>
+
+        </div>
+    </div>
+</section>
+<!--/ Contact-->
+
+<script type="text/javascript">
+
+    jQuery(document).ready(function ($) {
+        "use strict";
+
+        //console.log($("#pass").css("height"));
+
+        //$("#spanEye").css("height", $("#pass").css("height"));
+
+        ValidatorForm($("#loginForm"), "@Url.Action("ValidarUsr","Home")", "window.location.href='@Url.Action("Index","Planograma")';", "");
+
+        $("#pass").attr("style", "-webkit-text-security: disc;");
+        $("#spanEye").mouseup(function () {
+            $("#pass").attr("style", "-webkit-text-security: disc;");
+        });
+        $("#spanEye").mousedown(function () {
+            $("#pass").removeAttr("style");
+        });
+    });
+</script>

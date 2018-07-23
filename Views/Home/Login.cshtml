@@ -1,0 +1,160 @@
+﻿
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Publicador de Planogramas</title>
+    <link rel="stylesheet" href="@Url.Content("~/Maquetado/css/ionicons.css")">
+    <link rel="stylesheet" href="@Url.Content("~/Maquetado/css/toast.css")">
+    <link rel="stylesheet" href="@Url.Content("~/Maquetado/css/app.css")">
+</head>
+<body id="login">
+    <div class="content">
+        <img src="@Url.Content("~/Maquetado/img/logo.svg")" class="logo" alt="">
+        <div class="row">
+            <div class="col-sm-12">
+                <h3 class="center-align">Publicador de Planogramas</h3>
+                <div class="form-group">
+                    <label for="">Usuario</label>
+                    <input type="text" name="usuario" class="form-control">
+                    <span class="icon ion-close form-control-feedback-error"></span>
+                    <span class="icon ion-checkmark form-control-feedback-success"></span>
+                </div>
+            </div>
+            <div class="col-sm-12">
+                <div class="form-group form-password">
+                    <label for="">Password</label>
+                    <div class="input-group" style="position:relative;">
+                        <input type="text" name="password" class="form-control">
+                        <span class="icon ion-close form-control-feedback-password-error"></span>
+                        <span class="icon ion-checkmark form-control-feedback-password-success"></span>
+                        <div id="spanEye" style="cursor:pointer" class="input-group-addon"><i class="icon ion-eye"></i></div>
+                    </div>
+                </div>
+            </div>
+            <p class="center-align">
+                <button class="btn btn-brand login" id="login_form">Iniciar</button>
+            </p>
+        </div>
+    </div>
+    <script src="@Url.Content("~/Maquetado/js/jquery.js")"></script>
+    <script src="@Url.Content("~/Maquetado/js/toast.js")"></script>
+    <script src="@Url.Content("~/Maquetado/js/app.js")"></script>
+    <script src="@Url.Content("~/Maquetado/js/validatorForm.js")"></script>
+    <script>
+        $(document).ready(function () {
+            $("input[name='usuario']").focus();
+
+            $.ajax({
+                type: "POST",
+                dataType: "json",
+                async: true,
+                url: "@Url.Action("ActualizarPlanogramas2", "Planograma")",
+                data: { tiendas: "1420", categorias: ["1100_CERVEZA MODELO"] },
+                success: function (msg) {
+                    console.log("Planograma de prueba generado. " + msg.Mensaje);
+                }
+            });
+
+        });
+
+        toastr.options = {
+            "closeButton": true,
+            "debug": false,
+            "newestOnTop": false,
+            "progressBar": false,
+            "positionClass": "toast-top-right",
+            "preventDuplicates": false,
+            "onclick": null,
+            "showDuration": "300",
+            "hideDuration": "1000",
+            "timeOut": "5000",
+            "extendedTimeOut": "1000",
+            "showEasing": "swing",
+            "hideEasing": "linear",
+            "showMethod": "fadeIn",
+            "hideMethod": "fadeOut"
+        }
+
+        $(document).on('click', '#login_form', function () {
+            var validation = true;
+            mostrarLoad();
+            if ($('input[name="usuario"]').val() == '') {
+                validation = false;
+                $('input[name="usuario"]').closest('.form-group').addClass('has-error');
+            }
+
+            if ($('input[name="password"]').val() == '') {
+                validation = false;
+                $('input[name="password"]').closest('.form-group').addClass('has-error');
+            }
+
+            if (!validation) {
+                //mandar alerta, primer parametros es el tipo: success, warning, info, danger...segundo parametro el mensaje
+                toastr["error"]("Introduzca todos los campos.");
+                ocultarLoad();
+                return false;
+            }
+
+
+            PeticionAjaxForm({ user: $("input[name='usuario']").val(), pass: $("input[name='password']").val() },
+                "@Url.Action("ValidarUsr","Home")",
+                "window.location.href='@Url.Action("Index","Planograma")';",
+                "ocultarLoad();");
+
+        })
+
+
+
+        $(document).on('keyup', 'input', function (e) {
+            //console.log(e.which);
+            if ($(this).val() != '') {
+                $(this).closest('.form-group').removeClass('has-error');
+                $(this).closest('.form-group').addClass('has-success');
+            } else {
+                $(this).closest('.form-group').addClass('has-error');
+                $(this).closest('.form-group').removeClass('has-success');
+            }
+
+            if (e.which == 13) {
+                $("#login_form").click();
+            }
+        })
+
+        jQuery(document).ready(function ($) {
+            "use strict";
+
+            //console.log($("#pass").css("height"));
+
+            //$("#spanEye").css("height", $("#pass").css("height"));
+
+
+            $('input[name="password"]').attr("style", "-webkit-text-security: disc;");
+            $("#spanEye").mouseup(function () {
+                $('input[name="password"]').attr("style", "-webkit-text-security: disc;");
+            });
+            $("#spanEye").mousedown(function () {
+                $('input[name="password"]').removeAttr("style");
+            });
+        });
+
+    </script>
+
+    <div class="bg_load"></div>
+    <div class="wrapper">
+        <div class="inner">
+            <span>E</span>
+            <span>s</span>
+            <span>p</span>
+            <span>e</span>
+            <span>r</span>
+            <span>e</span>
+        </div>
+    </div>
+</body>
+</html>
