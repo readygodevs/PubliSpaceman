@@ -1,3 +1,5 @@
+prueba push to github
+
 FECHA:	2018-02-19 15:38:15		ERROR:	0600_COMIDA FRESCA Tienda: 4138 PLN_ID:14777. Violation of PRIMARY KEY constraint 'PK_PlanogramaCenefas'. Cannot insert duplicate key in object 'dbo.PlanogramaCenefas'. The duplicate key value is (4856, TAKOD5).
 The statement has been terminated. 
  ----------------------------------- 

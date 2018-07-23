@@ -11,6 +11,7 @@ namespace PlanogramaGen
     /// <summary>
     /// Provides access to a network share.
     /// </summary>
+    //prueba push
     public class NetworkShareAccesser : IDisposable
     {
         private string _remoteUncName;
